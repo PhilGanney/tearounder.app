@@ -1,0 +1,7 @@
+::-webkit-scrollbar:vertical {
+    width: 18px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 18px;
+}

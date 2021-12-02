@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>			
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width, maximum-scale=3">
+        <title>TeaRounder</title>
+		<link rel="stylesheet" href="mainStyles.css"> </link>
+		<script src="mainJS.js?=300"></script> <!-- increment query string inline with start.html so that browsers will use the version in cache from having visited start.html-->
+    </head>
+	<body id="infoBody" onload="accordionSetup()">
+		<div id="accordionContainer">
+			<!-- First Accordion (button and toggled hidden div) NB: button click event listener applied in JS-->
+			<button class="accordion">Getting started</button>
+			<div class="panel">
+			  <p>The recommended way to get going with TeaRounder, is to play around with it.</p>
+			  <p>You can remove individual items from your list, by adjusting amounts to zero - a box will then pop-up checking that you mean to remove the item.  You can also remove all items by tapping the "Empty list" button - a confirmation box pops-up for that too.</p>
+			</div>
+			
+			<button class="accordion">What's new</button>
+			<div class="panel">
+				This is the first public version of TeaRounder.
+				<ul class="alignLeft">
+					<li>Built to be easy to use on any device</li>
+					<li>Once the page is loaded, this "Anywhere edition" does not need internet connection to change drink list - great if you're in a bad signal area</li>
+					<li>Be as specific as you want to be. Options for milk in tea like none, a drop, some milk and lots of milk; and in fizzy drinks you'll see "Pepsi" and "Coke" and "Cola". </li>
+					<li>Lots of common options, plus the ability to type in custom text - supports emojii</li>
+				</ul>
+			</div>
+			
+			<button class="accordion">What TeaRounder can do</button>
+			<div class="panel">
+			<p>
+				TeaRounder is built to be the fastest and most efficient way to note down a drinks round list anywhere. It works even without WiFi or phone signal, once the page has loaded. You can choose from common drinks, and also type other things into the custom drink area. The custom drink area will accept any text, including emojii, except for a few symbols such as &lt; and &gt; that get ommitted.
+			</p>
+			</div>
+			
+			<button class="accordion">Future updates</button>
+			<div class="panel">
+				<p>I had a big bunch of updates that where planned for release over the course of 2020 and 2021, that are currently postponed. I might do a kickstarter campaign at some point in 2022, and I may add small improvements in my own time when I'm not working on other projects.</p>
+			  <ul class="alignLeft">
+				<li>Style options. Colours! Fonts! Rounded Corners! (a paid add on, to help toward development costs. Included in the kickstarter rewards)</li>
+				<li>Add your own drinks list - will allow you to track what you've got in at the moment, and have your own menu where all of the options shown are things you have in. (Another paid add on, included in kickstarter rewards)</li>
+				<li>Edit items that are already on your list (feature will just add a little bit of convenience, currently you delete them and add in what you want to replace it with, which works okay for most things)</li>
+				<li>Improve the loading time of this help/info screen & make it not reliant on having internet.</li>
+				<li>Allow you to note down who is having each drink or snack if you'd like. (Undecided if it will be free or part of kickstarter)</li>
+			    <li>Allow you to save peoples tea and coffee preferences, so that next time they'd like the same drink, you won't have to ask them how they have it.(Undecided if it will be free or part of kickstarter)</li>
+			    <li>Save and load up multiple previous drink rounds - this will be handy if you regularly meet up with a group.(Undecided if it will be free or part of kickstarter)</li>
+				<li>Additional notes: new buttons next to each listing, tap one and a box will show up, for extra text to go into</li>
+				<li>A button that lets you choose to just show options related to the kind of round you're doing - choices will be something like "Show all", "Workplace options", "Cafe options", "House options"(free update)</li>
+			  </ul>
+			  <h2>Potential Collaborations</h2>
+			  <p>Cafes, pubs and restaurants - It would be great if people could get menu's of the places they're having drinks at or eating at, right in TeaRounder. I have done quite a bit of work on a demo version.</p>
+			  <p>
+			  I'm also considering getting funding for this via Patreon, giving access to an in-depth developer blog and other behind the scenes stuff in return.</p>
+			  <p>Some other features, I'd like to add further down the line:</p>
+			  <ul class="alignLeft">
+				<li>A mug picture feature for rounds made at home or offices - so you can take pictures of mugs through the app, and then when you're doing a round, you have the option to pick a mug that the drink is going in.</li>
+				<li>Search facility in the add custom drink section, with an extended list of different drinks </li>
+			  </ul>
+			</div>
+			
+			<button class="accordion">How TeaRounder works & how it is built</button>
+			<div class="panel">
+			  <p>Apps, and websites are made from a bunch of computer files, lovingly typed and drawn by humans, in a process known as "App Development" or "Web Development". Some of these files tell the phone/browser what to show. Some files describe exactly how those things should look. Other files provide instructions for what should happen when someone taps or swipes on things, or are the images that make up the icons. 
+			  </p>
+			  <p>To let this work well on internet connections that might drop, TeaRounder only needs to be connected to the internet when you first load the page, and at the moment, also if you load up the help section. Getting the help screen downloaded in advance is high up on my improvements list.</p>
+			</div>
+			
+			<button class="accordion">About the developer</button>
+			<div class="panel">
+			  <p>So far TeaRounder is the work of one man. Phil Ganney. I live in Ipswich, in the east of England.</p>
+			</div>
+			<button class="accordion">Legal info and the TeaRounder user data promise</button>
+			<div class="panel">
+			  <p>The "TeaRounder" name, logo and app design are copyright Philip Ganney 2019-2021</p>
+			  <p>TeaRounder and it's developers promise to never sell on any user data. TeaRounder has to comply with data protection laws applicable to the UK. Currently TeaRounder does not permanently save any user data or upload or allow sharing data - we will only do this if features require it to function correctly, and in that scenario we will take privacy and security seriously and use industry best practices.</p>
+			</div>
+		</body>
+	</html>

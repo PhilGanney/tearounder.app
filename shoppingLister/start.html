@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width, maximum-scale=3"> <!-- maximum-scale=1-->
+        <title>TeaRounder</title>
+		<link rel="stylesheet" href="mainStyles.css"> </link>
+		<!-- "Favicon", fav icon, favourites icon. The little icon that in some old school browsers would just go into the favourites bar, but in modern browsers also goes into the tab and in history entries. Using the main tearounder icon, just like everywhere else on the site. Seems like a reasonable choice, though maybe one day I'll swap it for a ShoppingLister specific logo-->
+		<link rel="icon" href="../Icons/icon.png" type="image/x-icon"></link>
+		<script src="mainJS.js"></script>
+    </head>
+    <body onload="startUp()">
+        <script type="text/javascript" src="cordova.js"></script>
+		<div class="header">
+			<a href="../index.html"><h1>ShoppingLister (by TeaRounder)</h1></a>
+			<!--<img id="teaRounderIcon" src="Icons/icon.png" alt="Icon" width="32" height="32"> in a later update, this can be shown, but neeeds css to place it on the left, and also to have some usage-->
+			<button id="infoButton" class="">Info / help</button>
+		</div>
+		<!-- Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+			<span class="close">&times;</span>
+			<!-- Change src in javascript to match the relevant screen file -->
+			<iframe id="myModalIFrame" src=""></iframe>
+		  </div>
+
+		</div>
+		<div id="commonChoices"><h2>Common stuff:</h2>
+			<div id="categoriesOuter" class="choices">
+				<p>Categories</p>
+			
+				<div id="categoriesContainer" class="container xScroll" >
+					
+				</div>
+			</div>
+			<div id="tabContents" class="choices">
+
+				<div id="tabSelects"> 
+					<!-- Selects are generated here - I've copied in what is created for the Water category at cycle 46 (part way to beta 4)
+						<select id="select0" class="drinkSelects">  <option value="Tap water">Tap water</option><option value="Bottled still water">Bottled still water</option><option value="Bottled Fizzy water">Bottled Fizzy water</option></select>
+						<select id="select1" class="drinkSelects">  <option value="Ice">Ice</option><option value="No Ice">No Ice</option><option value="Lots of Ice">Lots of Ice</option><option value="Little Ice">Little Ice</option></select>
+					-->	
+				</div>
+
+				<button id="addDrink" value="CategoryHere" onclick="addDrink()">Add</button> <!--Formerly id="addPlainTea" onclick="addTea()" -->
+			</div>
+		</div>
+
+
+		<div id="AddOther">
+			<h2>Custom:</h2>
+			<div id="customDrinkAlignDiv">
+				<input id="inputDrinkName" type="text"> </input>
+				<button id="addCustom" class="button" onclick="userAddDrink()">Add Custom</button>
+			</div>
+		</div>
+		<h2>Your list:</h2>
+		<div id="drinks" class="Main">
+		</div>
+		<div>
+			<button id="resetDrinks" disabled="disabled" class="button" onclick="resetDrinks()">Empty List</button>
+		</div>
+		<div>
+			<h3>Total items in list:</h3>
+			<span id="totalQuantity" class="Amount">0</span>
+		</div>
+	</body>
+</html>

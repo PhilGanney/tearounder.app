@@ -1,0 +1,8 @@
+select, #addSpeciality, #addPlainTea{ /*Heights for these should be the same, so that things look right*/
+	height: 60px;
+}	
+
+#addSpeciality, #addPlainTea{
+	width: 60px;
+}
+

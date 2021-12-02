@@ -1,0 +1,40 @@
+<Drinks>
+	<default id="Choose:" default="true" nonvalue="true">
+	</default>
+	<category id="Coffees"> 
+		<default id="Choose:" default="true" nonvalue="true">
+		</default>
+		<drink id="Flat White Coffee">   
+		</drink>
+		<drink id="Espresso">
+			<size id="Single">
+			</size>
+			<size id="Double">
+			</size>
+		</drink>
+		<drink id="Latte">
+		</drink>
+		<drink id="Cappuccino">
+		</drink>
+	</category>
+	<category id="Teas">
+		<default id="Choose:" default="true" nonvalue="true">
+		</default>
+		<drink id="Green Tea"> 
+		</drink>
+		<subcategory id="Herbal Teas">
+			<drink id="Camomile">
+			</drink>
+			<drink id="Peppermint">
+			</drink>
+		</subcategory>
+		<drink id="Earl Grey Tea">
+		</drink>
+		<drink id="Lady Grey Tea">
+		</drink>
+		<drink id="English Breakfast Tea">
+		</drink>
+		<drink id="Assam Tea">
+		</drink>
+	</category>
+</Drinks>
