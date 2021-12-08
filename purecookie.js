@@ -1,7 +1,7 @@
 // --- Config --- //
 var purecookieTitle = "Cookies."; // Title
-var purecookieDesc = "A tasty treat, but also the name of little files that many websites use in order to function and learn how people find their website. By continuing to use TeaRounder.com, you accept that we use the type of cookies that you can't eat."; // Description
-var purecookieLink = '<a href="cookiePolicy.html" target="_blank">How tearounder.com use cookies</a>'; // Cookiepolicy link
+var purecookieDesc = "A tasty treat, but also the name of little files that many websites use in order to function and learn how people find their website. By continuing to use TeaRounder.app, you accept that we use the type of cookies that you can't eat."; // Description
+var purecookieLink = '<a href="cookiePolicy.html" target="_blank">How tearounder.app use cookies</a>'; // Cookiepolicy link
 var purecookieButton = "Understood"; // Button text
 // ---        --- //
 
