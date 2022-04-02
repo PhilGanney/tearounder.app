@@ -1,0 +1,447 @@
+html{
+	margin: 0px;
+	padding:0px;
+	
+}
+
+
+body{
+    text-align: center;
+    width: 100%;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	margin: 0px;
+	background-color: #FFFFFF;
+}
+body *{
+    margin: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+    font-size: 12pt;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#categoriesOuter{
+	padding-left: 4px;
+	padding-right: 4px;
+}
+#categoriesContainer{
+		max-width: 1200px;
+	  margin-left: auto;
+  margin-right: auto;
+}
+
+.header{
+    color: blue;
+}
+
+.header h1{
+	text-align: left;
+	margin-left: 5px;
+	
+}
+
+#MenuTitle{
+	font-size: 22px;
+	padding-top: 4px;
+	padding-bottom: 2px;
+}
+
+#priceAndAdd *{
+	display: inline;
+}
+
+button{
+    margin: 4px;
+	
+}
+
+.DrinkLine {
+	/**text-align: right;**/
+}
+
+.DrinkLine *{
+    display: inline-block ;
+    
+}
+
+.BtnMore, .BtnLess{
+	width: 26px;
+}
+
+ .choices{
+	 padding-top: 4px;
+	 padding-bottom: 4px;
+ }
+ 
+#orderDrinks{
+	min-height: 55px;
+}
+ 
+select, #addSpeciality, #addDrink,  #addCustom , #inputDrinkName{ /*Heights for these should be the same, so that things look right*/
+	/*height: 30px;*/
+	height: 60px;
+}
+
+#addSpeciality, #addDrink{
+	width: 60px;
+}
+
+#customDrinkAlignDiv{
+	display: table; /* Makes the container element behave like a table */
+	width: 100%;
+	
+}
+
+input{
+	box-sizing: border-box; /*Specifies how the visible height and width should be calculated with regard to padding - weirdly the default for inputs is different to most other UI. I could do this with a sweeping reset, but I'd rather just alter elements that I find unintuitive as and when I come across them*/
+}
+
+select{
+	width: 100%;
+}
+
+/*Hide the entire custom drink section, (not likely to be wanted for food businesses, ideally this should be configurable)*/
+#AddOther{
+	display: none;
+}
+#inputDrinkName{
+	display: table-cell;
+
+	width: 100%; /*Set like this so that in tiny viewports, this input box doesn't break the layout*/
+	max-width: 260px;
+	font-size: 28px;
+	vertical-align: top;
+}
+#addCustom{
+	display: table-cell;
+	vertical-align: top;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/*Different sections should have slightly different colours so that theres an extra visual clue that they are different sections*/
+/*
+
+/*Green pallete*/
+#commonChoices{
+	background-color: #86af49; 
+	padding:0px;
+}
+#tabContents{
+	background-color: #99b433;
+}
+
+#categoriesOuter{
+	background-color: #99b433;
+}
+
+#AddOther{
+	background-color: #d5e1df;
+}
+
+#tabSelects{
+	display: inline-block;
+}
+
+.container{
+    width: 98%;
+	padding-left: 1%;
+	padding-right: 1%;
+	/*revert back when ruled out
+	width: 99%;
+	padding-left: 4px;
+	padding-right: 0px;*/
+	min-width: 110px;
+    align-items: top;
+    
+    height: 64px;/*Overuled for larger screensizes to add room for scrollbar*/
+	min-height: 64px; /*Overuled for larger screensizes to add room for scrollbar. This rule is mostly for resizing*/
+    background-color: #b5e7a0;
+
+	/*resize: vertical; doesn't work as well as hoped - resize handle is tiny and difficult to use*/
+}
+
+.xScroll{
+    display: flex; /*Makes things on one line*/
+	overflow-x: scroll; /*Scrollbar on the x axis*/
+    overflow-y: hidden; /*No Scrollbar or overflow on the y axis*/
+}
+.yScroll{
+	overflow-x: hidden; /*Scrollbar on the x axis*/
+    overflow-y: scroll; /*No Scrollbar or overflow on the y axis*/
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0px; /*Removes scrollbar - overruled by a media query when the screen width is at least a set amount*/
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 200, 0, .2);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;  
+    background-color: #ffffff; 
+}
+
+.container button{
+	
+	width: 30%; min-width: 30%; /*Previously 100px for both, 30% guarentees that for any screen size, if there are 4 buttons or more in a container, on screen will be 3 buttons plus a fraction of a button - making it noticable that there's more to see - this helps avoid having a scrollbar, or a button that says "next". TODO: SHOULD BE PLATFORM DEPENDANT CSS: For a desktop version, and maybe tablets, we'll want the scrollbar version rather than this solution (desktop needs scrollbars anyway, and 30% width buttons look awful when 30% is a large amount*/
+	
+    height: 60px; max-height: 60px;
+	
+	margin: 1px 2px 1px 2px;
+	
+	vertical-align: middle;  /*Without this buttons with two lines of text line up differently to buttons with only one*/
+	
+	border-radius: 5px;
+}
+
+
+.Selected{
+	border-style: inset;
+}
+
+/* Main Menu*/
+#mainMenuIcon {
+	position: fixed;
+	top: 4px;
+	left: 4px;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+/*Info/Help Button*/
+#infoButton{
+	height:28px;
+	background-color: blue;
+	color: white;
+	position: fixed;
+	top: 4px;
+	right: 4px;
+	border-radius: 10px;
+}
+
+/*Javascript is used to apply .hidden and .showing as appropriate*/
+.hidden {
+	display: none;
+}
+.showing {
+	display: block;
+}
+.displayDefault {
+	display: default;
+}
+
+/* MODAL */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding: 0%; /* Make sure the only thing setting the box location is in the rule for the modal content */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin-top: 5%;
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-bottom: 0%;
+  
+  padding: 0px;
+  border: 1px solid #888;
+  width: auto;
+  height: 90%;
+  vertical-align: middle;
+}
+
+/* Style the iFrame*/
+#myModalIFrame {
+	height: 100%;
+	margin: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	width: 94%; /*Allow room for scroll bar and padding, otherwise when it appears content overspills*/
+	border-width: 0px; /*Hide the default border around iFrames*/
+    border-style: none; /*Hide the default border around iFrames*/
+}
+
+/* The Close Button */
+.close {
+  margin: 3px;
+
+  color: #aaaaaa;
+  position: absolute; /*Prevents a situation at narrow widths where the close button plus the main part of the modal content becomes wider than the modal, causing the rest of the content dropping lower and spilling out of the modal*/
+  right: 8%;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#previousOrderItems tbody tr td button{
+	min-height: 64px;
+    min-width: 64px;
+}
+
+/* ACCORDION*/
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 96%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+#infoBody{
+	padding: 0px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+}
+
+.alignLeft{
+	text-align: left;
+}
+.Amount {
+	font-weight: bold;
+}
+#orderList {
+	overflow-x: scroll;
+}
+
+table{
+    width: 100%;
+	max-width: 1000px;
+	  margin-left: auto;
+  margin-right: auto;
+}
+
+thead tr th{
+	border-bottom: 1px double gray;
+}
+
+tbody tr td{
+	border-bottom: 1px dashed gray;
+}
+
+.DrinkLine *{
+	vertical-align: middle;
+}
+
+.DrinkName {
+	width: 50%;
+	left: 0px;
+	text-align: left;
+	margin-right: 4%;
+}
+
+.DrinkLineControls {
+	/*float: right; bug! causes problems with single line items - this bug messed up my demo so I'm just commenting it out quickly*/
+	width: 28px;
+}
+
+#cookiePopupContainer {
+	position: fixed;
+	bottom: 2px;
+	width: 10%;
+	left: 45%;
+}
+
+#previousOrders{
+background-color: #b8cfe3;
+}
+.BtnOrderItems{
+	border-radius: 6px;
+	border-color: #99b433;
+	border-width: 2px;
+	min-height: 51px;
+}
+
+/****NO DEFAULT STYLES AFTER THIS COMMENT!, MEDIA QUERIES IN SIZE ORDER (Media queries are usually for overriding styles for specific sizes of screen or to account for device dependant needs, and as such we would not want default styles declared lower than MQ's where they might override a rule. This project uses mobile first design priniciples.****/
+@media only screen and (min-width: 290px) {
+	/*This is still a fairly narrow screen - any smaller and the title needs to be on the left, rather than centred due to clipping with the fixed position info/help button. Also at a width a bit lower, selects with lots of text started to break the layout - that also happened with input boxes, but its easier to fix them with width:100%; max-width: nnpx; (where nn is the size width it would normally be
+	- we could achieve the same with a max-width media query doing the reverse, but this approach is more "mobile-first"*/
+	.header h1{
+		text-align: center;
+		margin-left: 0px;
+	}
+	
+	select{
+		width:auto;
+	}
+}
+
+@media only screen and (min-width: 400px) {
+	/*Prevent buttons in containers from getting huge (as standard they are based on %*/
+	.container button{
+		width: 100px;
+		min-width: 100px;
+	}
+	
+	/*Add a scrollbar, since this is generally safe to do so at these screensizes and we have a risk that button sizes will mean buttons line up neatly with the box, meaning we have to add a layer of obviousness to the user that there is more content*/
+	::-webkit-scrollbar:horizontal {
+		height: 16px;
+	}
+	
+	.container{
+		/*Make room in container for scrollbar*/
+		height: 78px;
+		min-height: 78px;
+		/*Set overflow to auto, so that any time all of the items fit in the container, the scrollbar dissappears*/
+		overflow: auto;
+	}
+	
+	/*DrinkLineControls is only set to float, so as not to cover over longer words in drinklines, at larger screenwidths where we can be sure this would only happen in rare exusable times, we want the controls to be near to the drink name */
+	.DrinkLineControls {
+		float: none;
+	}
+}

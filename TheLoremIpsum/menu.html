@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width, maximum-scale=3"> <!-- maximum-scale=1-->
+        <title>TeaRounder</title>
+		<link rel="stylesheet" href="mainStyles.css"> </link>
+		<!-- "Favicon", fav icon, favourites icon. The little icon that in some old school browsers would just go into the favourites bar, but in modern browsers also goes into the tab and in history entries-->
+		<link rel="icon" href="../Icons/icon.png" type="image/x-icon"></link>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery library, needed for easily connecting to CoCart -->
+		<script src="mainJS.js"></script>
+    </head>
+    <body onload="startUp()">
+		<div class="header">
+			<h1>TeaRounder</h1>
+			<p>Food & drink ordering on any device</P>
+			<!--<img id="teaRounderIcon" src="Icons/icon.png" alt="Icon" width="32" height="32"> in a later update, this can be shown, but neeeds css to place it on the left, and also to have some usage-->
+			<button id="infoButton" class="">Info / help</button>
+		</div>
+		<!-- Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+			<span class="close">&times;</span>
+			<!-- Change src in javascript to match the relevant screen file -->
+			<iframe id="myModalIFrame" src=""></iframe>
+			<!-- For at least the demo, we add the full main list each time orders are placed to the container below when they get ordered (this might remain as a backup way of knowing what's been ordered in the main version, for if connection is subpar)-->
+			<div id="orderModalContainer" class="hidden">
+				<table id="previousOrderItems">
+					<thead>
+					  <tr>
+						<th class="DrinkName">Item</th>
+						<th class="Amount">Amount</th>
+						<th class="CostEach">£ Each</th>
+						<th class="Controls"> </th>
+					  </tr>
+					</thead>
+					
+				</table>
+			<!--<button id="reAddToList">Re-add all to list</button>-->
+			</div>
+		  </div>
+
+		</div>
+		<div id="commonChoices"><h2 id="MenuTitle">The Lorem Ipsum Pub (DEMO)</h2>
+			<div id="categoriesOuter" class="choices"><!--Formerly id="otherCommonDrinks", class possibly no longer makes sense since I repurposed this -->
+				<p>Hello! Pick a section of our menu:</p>   <!--normally contains the word "Categories" but I think it looks silly on food ordering pages-->
+			
+				<div id="categoriesContainer" class="container xScroll" > <!--Formerly id="otherDrinksContainer" -->
+					
+				</div>
+			</div>
+			<div id="tabContents" class="choices"> <!--Formerly id="plainTeas" -->
+				<div id="tabSelects"> 
+					<!-- Selects are generated here - I've copied in what is created for the Water category at cycle 46 (part way to beta 4)
+						<select id="select0" class="drinkSelects">  <option value="Tap water">Tap water</option><option value="Bottled still water">Bottled still water</option><option value="Bottled Fizzy water">Bottled Fizzy water</option></select>
+						<select id="select1" class="drinkSelects">  <option value="Ice">Ice</option><option value="No Ice">No Ice</option><option value="Lots of Ice">Lots of Ice</option><option value="Little Ice">Little Ice</option></select>
+					-->	
+				</div>
+				<div id="priceAndAdd" onclick="console.log('********HERE**********')"><!--This onclick is here so that Devs can put a marker in the developer log -->
+					<span id="itemCostCurrency" class="Amount">£</span>
+					<span id="itemCostValue" class="Amount">3.00</span>
+					<button id="addDrink" value="CategoryHere" onclick="addDrink()">Add</button> <!--Formerly id="addPlainTea" onclick="addTea()" -->
+				</div>
+			</div>
+		</div>
+
+
+		<div id="AddOther">
+			<h2>Custom drink:</h2>
+			<div id="customDrinkAlignDiv">
+				<input id="inputDrinkName" type="text"> </input>
+				<button id="addCustom" class="button" onclick="userAddDrink()">Add Custom</button>
+			</div>
+		</div>
+		<h2>Your list:</h2>
+		<div id="orderList">
+			<table>
+				<thead>
+				  <tr>
+					<th class="DrinkName">Item</th>
+					<th class="Amount">Amount</th>
+					<th class="Controls"> </th>
+					<th class="CostEach">£ Each</th>
+				  </tr>
+				</thead>
+				<tbody id="drinks" class="Main">
+				</tbody>
+			</table>
+		</div>
+
+		<div>
+			<h3>Total items in list:</h3>
+			<span id="totalQuantity" class="Amount">0</span>
+			<h3>Total to pay:</h3>
+			<div id="totalCost">
+				<span id="totalCostCurrency" class="Amount">£</span>
+				<span id="totalCostValue" class="Amount">0.00</span>
+			</div>
+		</div>
+		<div>
+			<button id="orderDrinks" disabled="disabled" class="button" onclick="placeOrder()">Place Order</button>
+		</div>
+		<div id="previousOrders">
+			<h2>Your past rounds:</h2>
+			<table>
+				<thead>
+				  <tr>
+					<th class="OrderNum">Round #</th>
+					<th class="OrderItemButtonCells">Items</th>
+					<th class="OrderTotal">£ Total</th>
+					<th class="OrderStatus">Status</th>
+				  </tr>
+				</thead>
+				<tbody id="ordersTbody" class="Main">
+				</tbody>
+			</table>
+		<div>
+	</body>
+</html>
