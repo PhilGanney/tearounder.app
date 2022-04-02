@@ -399,7 +399,7 @@ function changeTotals(addToQuantity, addToBill){
 	//check if there's now no items (as we'll want to prevent users from attempting to order with no items
 	if (newTotalQuantity == 0){
 		//de-activate the order button
-	  document.getElementById("resetDrinks").disabled = "disabled";
+	  document.getElementById("orderDrinks").disabled = "disabled";
 	}
 }
 
@@ -549,7 +549,7 @@ function coCartUpdateTable(response){
 	//update quantity 
 	document.getElementById("totalQuantity").innerHTML = response.responseJSON.item_count; 	
 	//also set the order button to clickable
-	document.getElementById("resetDrinks").disabled = "";
+	document.getElementById("orderDrinks").disabled = "";
 }
 
 function coCartGoToCheckout(){
@@ -824,7 +824,7 @@ function newDrink(attemptDrink, startAmount) {
 	  changeTotals(1,priceDecimal);
 
 	  //make sure the order button is activated (since it's disabled at start)
-	  document.getElementById("resetDrinks").disabled = "";
+	  document.getElementById("orderDrinks").disabled = "";
 	  coCartAddItem(itemData.id.toString());
   }
   /*
@@ -1049,7 +1049,7 @@ function placeOrder(){
 function resetDrinks(){
 /*Unlike the version of this in TR-Anywhere we don't want this all contained in a confirm - as this is done as part of placing an order*/
 	document.getElementById("drinks").innerHTML = "";
-	document.getElementById("resetDrinks").disabled = "disabled";
+	document.getElementById("orderDrinks").disabled = "disabled";
 	document.getElementById("totalQuantity").innerHTML  = 0;
 	document.getElementById("totalCostValue").innerHTML  = 0;
 }
