@@ -422,9 +422,10 @@ function changeAmount(elemId,change, item_key = null) {
   if (attemptVal == 0){
 		//Remove Item function needs the div ID for the item. div ID is currently the name of the drink as displayed in the text, which is the same as the ID we pass in to this function but without the word "Amount" at the end
 
-		//https://www.w3schools.com/js/js_string_methods.asp
-		removeItem(drink);
-  }
+		//TODO: Line beneath currently commented out as it sometimes has errors that stop changeAmount, but if we rely just on CoCart to update the grid, that all works great
+		//removeItem(drink);
+  } 
+  
   if (change > 0){
 	  coCartAddItem(itemData.id.toString());
   } else if (change < 0){
@@ -434,17 +435,26 @@ function changeAmount(elemId,change, item_key = null) {
 }
 
 function removeItem(itemID){
+	rowElem = document.getElementById(itemID);
+	
+	if (rowElem == null){
+		console.log("rowElem is null!!");
+	}
+	console.log("rowElem is ...");
+	console.log(rowElem);
+	console.log("itemID is: " + itemID);
+	
 	if(confirm("Remove this item?")){
 		//get the amount of items being removed
 		var amountRemoved = parseInt(document.getElementById(itemID+"Amount").innerHTML);
 		//get the cost of the items being removed
-		//Everything in the demo is £2.00 currently
-		var itemCostEach = 2.00;
+		var itemCostEach = (getItemDataByName(itemID).price / 100).toFixed(2);
 		//update the new totals via changeTotals(addToQuantity, addToBill) - we're removing, whereas the params are expressed in the amount you are adding, so pass negative values
 		changeTotals((0 - amountRemoved), (0 - (amountRemoved * itemCostEach)));
 		//Remove the entire div for the list item - div ID is passed in
 		//Div will be the only div of that ID within the div "drinks" 
-		document.getElementById("drinks").removeChild(document.getElementById(itemID));
+		console.log("Deleting table row element with id: " + rowElem);
+		document.getElementById("drinks").removeChild(rowElem);
 	}
 }
 
