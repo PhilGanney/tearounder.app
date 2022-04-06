@@ -27,7 +27,7 @@ var teaRounderData = {
 		"Wines": { 
 			"listingTemplate": "Default", 
 			"mainSelects": [ 
-				["White Wine 125ml", "White Wine 175ml", "White Wine 200ml"]
+				["White Wine 125ml", "White Wine 175ml", "White Wine 250ml"]
 			]
 		}
 	}
@@ -418,8 +418,7 @@ function changeAmount(elemId,change, item_key = null) {
     document.getElementById(elemId).innerHTML = attemptVal.toString();
     //also change the total amount of drinks via changeTotals(addToQuantity, addToBill)
     changeTotals(change, (priceDecimal * change) );//when removing items, change will equal a negative amount
-  }
-  if (attemptVal == 0){
+  } else if (attemptVal == 0){
 		//Remove Item function needs the div ID for the item. div ID is currently the name of the drink as displayed in the text, which is the same as the ID we pass in to this function but without the word "Amount" at the end
 
 		//TODO: Line beneath currently commented out as it sometimes has errors that stop changeAmount, but if we rely just on CoCart to update the grid, that all works great
