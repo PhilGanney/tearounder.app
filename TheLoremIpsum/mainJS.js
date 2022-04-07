@@ -571,7 +571,7 @@ function coCartGoToCheckout(){
 	let cartKey = loadFromLocalStorage(localStorageKeyNameForCartKey);
 	if (cartKey != null){ //validate that there is actually a cart to take to the checkout
 		let checkoutURL = "";
-		checkoutURL = trURL + "/checkout/?cocart-load-cart=" + cartKey;
+		checkoutURL = trURL + "checkout/?cocart-load-cart=" + cartKey;
 		//openIframe(checkoutURL);  //sadly some security thing means we can't load the checkout screen into an iFrame
 		window.open(checkoutURL, '_blank').focus();
 		//TODO: Improve the UX - with people trying to add to cart that are already at the checkout
