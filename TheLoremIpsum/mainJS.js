@@ -234,7 +234,8 @@ function getItemDataByName(name){
 }
 
 function startUp(){
-    console.log("startup started");
+    console.groupCollapsed("startUp()");
+	console.log("startup started");
 	/*coCartCheckCart() makes sure that there is a cart_key
 	Todo: actually make the order grid match up with CoCart from wihtin that call
 	*/
@@ -281,6 +282,7 @@ function startUp(){
 	
 	roundsFromLsToGrids();
 	console.log("startup finished (some async functions might still be going)");
+	console.groupEnd();
 }
 //Leave the alert below in for the demo!!
 window.onload = alert("This is a demo that is a work in progress");
@@ -407,6 +409,7 @@ function changeTotals(addToQuantity, addToBill){
 //lower limit of 1 hardcoded here intentionally by only setting the change if the attemptAmount is above 0 (for a while, during coding the MVP, this was hardcoded to 0 - there may be code that could be simplified here, now that I've changed my mind on where to have the limit
 //I've not set any upper limit, so presumably max is javascripts limits -I've tested manual tapping at least up to 350 and by changing start value to 999999 and tapping to 1000000. Thoroughly beyond requirements.
 function changeAmount(elemId,change, item_key = null) {
+	console.groupCollapsed("changeAmount");
 	console.log("changeAmount(elemId: " + elemId + ", change" + change);
   let oldAmount = (parseInt(document.getElementById(elemId).innerHTML));
   var attemptVal = oldAmount + change;
@@ -431,6 +434,7 @@ function changeAmount(elemId,change, item_key = null) {
 	  //coCartSubtractItem(item_key, oldAmount)
 	  coCartSubtractItem(item_key, oldAmount);
   }
+  console.groupEnd();
 }
 
 function removeItem(itemID){
@@ -531,6 +535,7 @@ function coCartCheckCart(){
 
 //renamed from function updateTable when porting from test 1 to demo
 function coCartUpdateTable(response){
+	console.groupCollapsed("coCartUpdateTable")
 	console.log("updating table");
 	let items = response.responseJSON.items;
 	var newHTML = "";
@@ -559,6 +564,7 @@ function coCartUpdateTable(response){
 	document.getElementById("totalQuantity").innerHTML = response.responseJSON.item_count; 	
 	//also set the order button to clickable
 	document.getElementById("orderDrinks").disabled = "";
+	console.groupEnd();
 }
 
 function coCartGoToCheckout(){
@@ -775,6 +781,7 @@ function userAddDrink(){
 }
 
 function newDrink(attemptDrink, startAmount) { 
+	console.groupCollapsed("newDrink");
 	console.log("newDrink called, attemptDrink == " + attemptDrink);
 //The main internal function for adding drinks to the list.
   /* This function is called whenever we try to add a drink to the list,
@@ -844,6 +851,7 @@ function newDrink(attemptDrink, startAmount) {
   var newTotalCost = (oldTotalCost + 2.00).toString();
   //alert(newTotalCost);
   document.getElementById("totalCostValue").innerHTML = newTotalCost; */
+  console.groupEnd();
 }
 
 function showViaClass(id){
@@ -1035,6 +1043,7 @@ function placeOrder(){
 			
 		TODO: get a confirmation of the order going through
 	*/
+	console.groupCollapsed("placeOrder");
 	if(confirm("Ready to order? (DEMO)")){
 		console.log("User confirmed: ready to order");
 		trOrderNumber = getHighestTrOrderNum() + 1;
@@ -1053,6 +1062,7 @@ function placeOrder(){
 		addOrderToGrids(trOrderNumber, orderList, orderTotal);
 		resetDrinks();
     }
+	console.groupEnd();
 }
 
 function resetDrinks(){
@@ -1062,56 +1072,3 @@ function resetDrinks(){
 	document.getElementById("totalQuantity").innerHTML  = 0;
 	document.getElementById("totalCostValue").innerHTML  = 0;
 }
-
-/*********Everything below here is depreciated or unused code kept as it may be useful at some point down the line*********
- - yyyUINotInUse prefixed functions are not in use becuase I'm not using the UI that the code is based on at the moment, and I'm keeping the code here becuase it's likely that I will use that UI on a later update at some point
- - zzzUnused prefixed functions are ones that I keep for basic sanity checking. At 08/01/2020 I can't remember when I last used them though - update this comment when they get used, so that I can assess if I've not used them in a long time and can get rid of them
-*******/
-
-
-function yyyUINotInUseTopMenuTapped(){ 
-	//not in use, but probably not for too much longer
-	if (document.getElementById("mainMenuContent").getAttribute("class") == "dropdown-content showing"){
-		document.getElementById("mainMenuContent").className = "dropdown-content hidden";
-	} else {
-		document.getElementById("mainMenuContent").className = "dropdown-content showing";
-	}
-}
-
-function yyyUINotInUseMenu(choice){
-	//Not in use
-	
-	switch(choice){
-		//Should be one case per menu entry
-		case 'Help and tricks':
-			alert(choice + `
-
-TeaRounder is designed to be fast to find drinks`);
-			break;
-		case 'Coming soon':
-					
-			break;
-		case 'How it\'s made':
-					
-			break;
-		case 'About the developer':
-					
-			break;
-		default:
-		
-	}
-	
-}
-
-
-/* Tester function - useful for sanity checking during dev
-function zzzUnusedTestSimpleChange() {
-  document.getElementById("demo").innerHTML = "Paragraph changed!";
-}
-*/
-
-/*
-function zzzUnusedLessC() {//deprecated
-  document.getElementById("cAmount").innerHTML = (parseInt(document.getElementById("cAmount").innerHTML) - 1).toString();
-}
-*/

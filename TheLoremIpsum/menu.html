@@ -45,7 +45,7 @@
 		</div>
 		<div id="commonChoices"><h2 id="MenuTitle">The Lorem Ipsum Pub (DEMO)</h2>
 			<div id="categoriesOuter" class="choices"><!--Formerly id="otherCommonDrinks", class possibly no longer makes sense since I repurposed this -->
-				<p>Hello! Pick a section of our menu:</p>   <!--normally contains the word "Categories" but I think it looks silly on food ordering pages-->
+				<p onclick="console.log('********HERE**********')">Hello! Pick a section of our menu:</p> <!--This onclick is here so that Devs can put a marker in the developer log -->
 			
 				<div id="categoriesContainer" class="container xScroll" > <!--Formerly id="otherDrinksContainer" -->
 					
@@ -58,7 +58,7 @@
 						<select id="select1" class="drinkSelects">  <option value="Ice">Ice</option><option value="No Ice">No Ice</option><option value="Lots of Ice">Lots of Ice</option><option value="Little Ice">Little Ice</option></select>
 					-->	
 				</div>
-				<div id="priceAndAdd" onclick="console.log('********HERE**********')"><!--This onclick is here so that Devs can put a marker in the developer log -->
+				<div id="priceAndAdd" >
 					<span id="itemCostCurrency" class="Amount">£</span>
 					<span id="itemCostValue" class="Amount">3.00</span>
 					<button id="addDrink" value="CategoryHere" onclick="addDrink()">Add</button> <!--Formerly id="addPlainTea" onclick="addTea()" -->
