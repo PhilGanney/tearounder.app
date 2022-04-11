@@ -507,7 +507,7 @@ function coCartRemoveCartKey(){
 
 //renamed from checkCart() when porting from test 1 to demo
 function coCartCheckCart(){
-	console.log("checkCart() running");
+	console.log("coCartCheckCart() running");
 	//let cartKey = document.getElementById("cartKeyInput").value;
 	//attempt to get a cart_key from localStorage, and create a query string from it if there, if one isn't there, don't use a cart_key - so leave the query string empty including the ? symbol
 	let cartKey = loadFromLocalStorage(localStorageKeyNameForCartKey);
@@ -517,7 +517,7 @@ function coCartCheckCart(){
 	}
 
 	$.ajax({
-	  url: "https://tearounder.thinkablecloud.co.uk/wp-json/cocart/v2/cart" + cartKeyQuery,
+	  url: trURL + "wp-json/cocart/v2/cart" + cartKeyQuery,
 	  method: "GET",
 	  dataType: "json",
 	  contentType: "application/json; charset=utf-8",
@@ -530,7 +530,7 @@ function coCartCheckCart(){
 		}
 	  }
 	});
-	console.log("checkCart() finished");
+	console.log("coCartCheckCart() finished");
 }
 
 //renamed from function updateTable when porting from test 1 to demo
@@ -592,7 +592,7 @@ function coCartAddItem(id){
 	//now do the actual AJAX call (via jQuery)
 	$.ajax({
 	  //The number after v in the URL below may look wrong, but having v3 instead gets a 404 error because CoCart 3 uses API version v2
-	  url: "https://tearounder.thinkablecloud.co.uk/wp-json/cocart/v2/cart/add-item" + cartKeyQuery,
+	  url: trURL + "wp-json/cocart/v2/cart/add-item" + cartKeyQuery,
 	  method: "POST",
 	  data: JSON.stringify({
 		"id" : id,

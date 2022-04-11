@@ -85,6 +85,10 @@ select, #addSpeciality, #addDrink,  #addCustom , #inputDrinkName{ /*Heights for 
 	height: 60px;
 }
 
+select.filter{
+	height: 40px;
+}
+
 #addSpeciality, #addDrink{
 	width: 60px;
 }
@@ -130,12 +134,19 @@ select{
 	background-color: #86af49; 
 	padding:0px;
 }
-#tabContents{
+
+#tabContents,
+#categoriesOuter,
+.odd{
 	background-color: #99b433;
 }
 
-#categoriesOuter{
-	background-color: #99b433;
+.odd .xScroll{
+	background-color: #b5e7a0;
+}
+
+.even{
+	background-color: #d5e1df;
 }
 
 #AddOther{
@@ -144,6 +155,12 @@ select{
 
 #tabSelects{
 	display: inline-block;
+}
+
+
+.pubButton *{
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
 .container{
@@ -157,8 +174,11 @@ select{
 	min-width: 110px;
     align-items: top;
     
-    height: 64px;/*Overuled for larger screensizes to add room for scrollbar*/
-	min-height: 64px; /*Overuled for larger screensizes to add room for scrollbar. This rule is mostly for resizing*/
+	/*Make room in container for scrollbar - going off feedback from James R I changed this so that scrollbars show even on tiny screens, to make it more clear*/
+	height: 78px;
+	min-height: 78px;
+	/*Set overflow to auto, so that any time all of the items fit in the container, the scrollbar dissappears*/
+	overflow: auto;
     background-color: #b5e7a0;
 
 	/*resize: vertical; doesn't work as well as hoped - resize handle is tiny and difficult to use*/
@@ -183,7 +203,7 @@ select{
 }
 
 ::-webkit-scrollbar:horizontal {
-    height: 0px; /*Removes scrollbar - overruled by a media query when the screen width is at least a set amount*/
+    /*height: 0px; /*Removes scrollbar - overruled by a media query when the screen width is at least a set amount*/
 }
 
 ::-webkit-scrollbar-thumb {
@@ -430,14 +450,6 @@ background-color: #b8cfe3;
 	/*Add a scrollbar, since this is generally safe to do so at these screensizes and we have a risk that button sizes will mean buttons line up neatly with the box, meaning we have to add a layer of obviousness to the user that there is more content*/
 	::-webkit-scrollbar:horizontal {
 		height: 16px;
-	}
-	
-	.container{
-		/*Make room in container for scrollbar*/
-		height: 78px;
-		min-height: 78px;
-		/*Set overflow to auto, so that any time all of the items fit in the container, the scrollbar dissappears*/
-		overflow: auto;
 	}
 	
 	/*DrinkLineControls is only set to float, so as not to cover over longer words in drinklines, at larger screenwidths where we can be sure this would only happen in rare exusable times, we want the controls to be near to the drink name */
