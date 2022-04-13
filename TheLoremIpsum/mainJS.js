@@ -241,7 +241,6 @@ function startUp(){
 	*/
 	coCartCheckCart();
 	//MODAL - (Quick paste in from w3schools example with some minor adaptation to the project)
-
 	// Get the modal
 	var modal = document.getElementById("myModal");
 
@@ -282,10 +281,10 @@ function startUp(){
 	
 	roundsFromLsToGrids();
 	console.log("startup finished (some async functions might still be going)");
+	//Leave the alert below in for the demo!!
+	alert("This is a demo that is a work in progress");
 	console.groupEnd();
 }
-//Leave the alert below in for the demo!!
-window.onload = alert("This is a demo that is a work in progress");
 
 function openIframe(src){
 	var modalIFrame = document.getElementById("myModalIFrame");

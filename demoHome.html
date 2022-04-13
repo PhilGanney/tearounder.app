@@ -9,8 +9,9 @@
 		<link rel="stylesheet" href="TheLoremIpsum/mainStyles.css"> </link>
 		<!-- Favicon! -->
 		<link rel="icon" href="Icons/icon.png" type="image/x-icon"></link>
+		
     </head>
-    <body> <!--onload="startUp()"-->
+    <body>
        <!-- <script type="text/javascript" src="cordova.js"></script>-->
 	   	<!-- Modal -->
 		<div id="myModal" class="modal">
@@ -34,15 +35,27 @@
 			<!--<button id="infoButton" class="">Info / help</button> -->
 		</div>
 		
-		<!-- Main Area - down the middle -->
+		<!-- Main Area -->
 		<div id="mainContent">
 			<div id="" class="homepageSection odd">
-				<h2>TeaRounder ordering now at Examplebrand pubs</h2>
-				<p>Now when you visit a Examplebrand pub, you'll be able to order food and drink, from any device. Just choose the pub below, or use a QR code at the table - they both open the same page:</p>
+				<span>
+				Filter by:
 				<select id="venueFilter0" class="filter">
-					<option>Filter by county?
-					<option>
+					<option>county?
+					</option>
 				</select>
+				<select id="venueFilter1" class="filter">
+					<option>brand?</option>
+					<option>Independant venues</option>
+					<option>Examplebrand</option>
+					<option>AltExample</option>
+					
+				</select>
+				<select id="venueFilter2" class="filter">
+					<option>type?
+					</option>
+				</select>
+				</span>
 				<div id="" class="xScroll">
 					<button class="pubButton" onclick="location.href='TheLoremIpsum/menu.html'">
 						<h3>The Lorem Ipsum</h3>
@@ -213,11 +226,29 @@
 				<p>Perfect for taking drink orders at home, in the office, or as a backup option for places with no ordering system.</p>
 				</button>
 			</div>
-			<div id="" class="homepageSection odd">
+			<div id="" class="homepageSection odd" >
+				<h2 >What's new:</h2>
+				<div class="container yScroll" style="height: 160px;">
+					<h2>May 2022</h2>
+					<h3>TeaRounder ordering now at Examplebrand pubs</h3>
+					<p>Now when you visit a Examplebrand pub, you'll be able to order food and drink, from any device. Just choose the pub above, or use a QR code at the table - they both open the same page:</p>
+					<h3>Features x and y</h3>
+					<p>To help people do xyz more easily, we've added Foo to the xyz area. Just tap on the foo icon, and thing will happen.</p>
+					<p>We then thought, well if we can do that, why not go the extra mile and add the ability to do ... as well.
+					<h2>April 2022</h2>
+					<h3>TeaRounder ordering now at Pennys Cafe in Exampleville, Dorset</h3>
+					<p>Penny was delighted that her cafe in Dorset is the first cafe to be on TeaRounder. Now </p>
+					<h3>Features a and b</h3>
+					<p>Info about features we are proud of here</p>
+				</div>
 			</div>
 			<div id="cookiePopupContainer"></div>
-			<div id="lastUpdated">Last updated 11th April 2022.<br/>TeaRounder &copy; Philip Ganney 2021 - 2022  <!--TeaRounder blog at <a href="https://philipganney.wordpress.com">philipganney.wordpress.com</a>--> </div>
+
 			
 		</div>
 	</body>
+		<footer>
+			<div id="lastUpdated">Last updated 13th April 2022.<br/>TeaRounder &copy; Philip Ganney 2021 - 2022  <!--TeaRounder blog at <a href="https://philipganney.wordpress.com">philipganney.wordpress.com</a>--> 
+			</div>Venue sign up | venue log in | Privacy Policy
+		</footer>
 </html>
