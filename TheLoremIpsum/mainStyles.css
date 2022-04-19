@@ -229,6 +229,17 @@ select{
 	
 	border-radius: 5px;
 }
+#venues button{
+	
+	width: 30%; min-width: min-content; max-width: 200px;
+    height: 120px; max-height: 120px;
+	
+	margin: 1px 2px 1px 2px;
+	
+	vertical-align: middle; 
+	
+	border-radius: 5px;
+}
 
 
 .Selected{
