@@ -9,13 +9,13 @@ var teaRounderData = {
 		"Teas": { 
 			"listingTemplate": "Default", 
 			"mainSelects": [ 
-				["Bucks Blend tea - Full fat milk", "Bucks Blend tea - Semi-skimmed milk", "Bucks Blend tea - Skimmed milk", "Bucks Blend tea - No milk", "Bucks Blend tea - Oat milk", "Green Tea", "Earl Grey tea - Full fat milk", "Earl Grey tea - Skimmed milk", "Earl Grey tea - Semi-skimmed milk", "Earl Grey tea - No milk", "Earl Grey tea - Oat milk"]
+				["Bucks Blend tea - Full fat milk", "Bucks Blend tea - Semi-skimmed milk", "Bucks Blend tea - Skimmed milk", "Bucks Blend tea - No milk", "Bucks Blend tea - Oat milk", "Green Tea", "Peppermint tea", "Earl Grey tea - Full fat milk", "Earl Grey tea - Skimmed milk", "Earl Grey tea - Semi-skimmed milk", "Earl Grey tea - No milk", "Earl Grey tea - Oat milk"]
 			]
 		},
 		"Other Hot Drinks": { 
 			"listingTemplate": "Default", 
 			"mainSelects": [ 
-				["Coffee", "Decaf Coffee", "Decaf Tea", "Horlicks", "Hot Chocolate", "Ovaltine"]
+				["Coffee", "Decaf Coffee", "Horlicks", "Hot Chocolate", "Ovaltine"]
 			]
 		},
 		"Juices": { 
@@ -28,12 +28,6 @@ var teaRounderData = {
 			"listingTemplate": "Default",
 			"mainSelects": [ 
 				["Cloudy Lemonade", "Coke", "Cola", "Lemonade", "Orangeade", "Pepsi"]
-			]
-		},	
-		"Wines": { 
-			"listingTemplate": "Default", 
-			"mainSelects": [ 
-				["White Wine 125ml", "White Wine 175ml", "White Wine 250ml"]
 			]
 		}
 	}
@@ -313,6 +307,13 @@ function getItemDataByName(name){
 			"escapedName": "Earl%20Grey%20tea%20-%20Oat%20milk",
 			"price": 300
 		};
+	}    else if(name == "Peppermint tea" || name == "Peppermint%20tea"){
+		return {
+			"id": 261,
+			"name": "Peppermint tea",
+			"escapedName": "Peppermint%20tea",
+			"price": 300
+		};//
 	} 
 }
 
