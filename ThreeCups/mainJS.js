@@ -6,7 +6,7 @@ var trOrderNumber = 0;// 0 is a good default value, because we wouldn't actually
 
 var teaRounderData = {
 	"Categories": {
-		"Tea Blends": { 
+		"Teas": { 
 			"listingTemplate": "Default", 
 			"mainSelects": [ 
 				["Bucks Blend tea - Full fat milk", "Bucks Blend tea - Semi-skimmed milk", "Bucks Blend tea - Skimmed milk", "Bucks Blend tea - No milk", "Bucks Blend tea - Oat milk", "Green Tea", "Earl Grey tea - Full fat milk", "Earl Grey tea - Skimmed milk", "Earl Grey tea - Semi-skimmed milk", "Earl Grey tea - No milk", "Earl Grey tea - Oat milk"]
@@ -1002,16 +1002,16 @@ function showOrderItems(orderId){
 	document.getElementById("reAddToList").onclick = function() {
 		//comment for quick ctrl f purposes: function reAddToList
 		console.log(orderId);
-		let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-		console.log(trPastOrders[orderId - 1]);
+		let threeCupsPastOrders = JSON.parse(loadFromLocalStorage("threeCupsPastOrders"));
+		console.log(threeCupsPastOrders[orderId - 1]);
 		coCartCheckCart();
-		for(let i = 0; i < trPastOrders[orderId - 1].orderList.length; i++){
-			console.log(trPastOrders[orderId - 1].orderList[i]);
-			for(let j = 0; j < trPastOrders[orderId - 1].orderList[i][1]; j++){
+		for(let i = 0; i < threeCupsPastOrders[orderId - 1].orderList.length; i++){
+			console.log(threeCupsPastOrders[orderId - 1].orderList[i]);
+			for(let j = 0; j < threeCupsPastOrders[orderId - 1].orderList[i][1]; j++){
 				setTimeout(
 					function() 
 					{
-						itemData = getItemDataByName(trPastOrders[orderId - 1].orderList[i][0]);
+						itemData = getItemDataByName(threeCupsPastOrders[orderId - 1].orderList[i][0]);
 						console.log("itemData.id: " + itemData.id);
 						coCartAddItem(itemData.id.toString());
 						console.log("***************" + itemData.name + "***************");
@@ -1171,27 +1171,27 @@ function getListItemAmounts(listID){
 }
 
 function getHighestTrOrderNum(){
-	//look in LS for key: "trPastOrders"
-	let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-	if (trPastOrders == null){
+	//look in LS for key: "threeCupsPastOrders"
+	let threeCupsPastOrders = JSON.parse(loadFromLocalStorage("threeCupsPastOrders"));
+	if (threeCupsPastOrders == null){
 		return 0;
 	}
-	return trPastOrders.length;
+	return threeCupsPastOrders.length;
 }
 
 function roundsFromLsToGrids(){
 	console.log("roundsFromLsToGrids() start");
-	//look in LS for key: "trPastOrders"
+	//look in LS for key: "threeCupsPastOrders"
 	
-	let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-	console.log(trPastOrders);
-	if (trPastOrders == [] || trPastOrders == null){
-		console.log("roundsFromLsToGrids(), early exit condition met: trPastOrders == [] or null");
+	let threeCupsPastOrders = JSON.parse(loadFromLocalStorage("threeCupsPastOrders"));
+	console.log(threeCupsPastOrders);
+	if (threeCupsPastOrders == [] || threeCupsPastOrders == null){
+		console.log("roundsFromLsToGrids(), early exit condition met: threeCupsPastOrders == [] or null");
 		return;
 	}
-	console.log("Attempting to loop through trPastOrders");
-	for(let i = 0; i < trPastOrders.length; i++){
-		addOrderToGrids(trPastOrders[i].trOrderNumber, trPastOrders[i].orderList, trPastOrders[i].orderTotal);
+	console.log("Attempting to loop through threeCupsPastOrders");
+	for(let i = 0; i < threeCupsPastOrders.length; i++){
+		addOrderToGrids(threeCupsPastOrders[i].trOrderNumber, threeCupsPastOrders[i].orderList, threeCupsPastOrders[i].orderTotal);
 	}
 	console.log("roundsFromLsToGrids() finished");
 }
@@ -1220,7 +1220,7 @@ function placeOrder(){
 			"orderTotal": orderTotal
 		};
 		console.log(orderData);
-		appendToLocalStorageArray("trPastOrders", orderData);
+		appendToLocalStorageArray("threeCupsPastOrders", orderData);
 		
 		
 		addOrderToGrids(trOrderNumber, orderList, orderTotal);
