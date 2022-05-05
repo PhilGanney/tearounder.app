@@ -768,16 +768,16 @@ function showOrderItems(orderId){
 	document.getElementById("reAddToList").onclick = function() {
 		//comment for quick ctrl f purposes: function reAddToList
 		console.log(orderId);
-		let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-		console.log(trPastOrders[orderId - 1]);
+		let twoSpoonsPastOrders = JSON.parse(loadFromLocalStorage("twoSpoonsPastOrders"));
+		console.log(twoSpoonsPastOrders[orderId - 1]);
 		coCartCheckCart();
-		for(let i = 0; i < trPastOrders[orderId - 1].orderList.length; i++){
-			console.log(trPastOrders[orderId - 1].orderList[i]);
-			for(let j = 0; j < trPastOrders[orderId - 1].orderList[i][1]; j++){
+		for(let i = 0; i < twoSpoonsPastOrders[orderId - 1].orderList.length; i++){
+			console.log(twoSpoonsPastOrders[orderId - 1].orderList[i]);
+			for(let j = 0; j < twoSpoonsPastOrders[orderId - 1].orderList[i][1]; j++){
 				setTimeout(
 					function() 
 					{
-						itemData = getItemDataByName(trPastOrders[orderId - 1].orderList[i][0]);
+						itemData = getItemDataByName(twoSpoonsPastOrders[orderId - 1].orderList[i][0]);
 						console.log("itemData.id: " + itemData.id);
 						coCartAddItem(itemData.id.toString());
 						console.log("***************" + itemData.name + "***************");
@@ -937,27 +937,27 @@ function getListItemAmounts(listID){
 }
 
 function getHighestTrOrderNum(){
-	//look in LS for key: "trPastOrders"
-	let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-	if (trPastOrders == null){
+	//look in LS for key: "twoSpoonsPastOrders"
+	let twoSpoonsPastOrders = JSON.parse(loadFromLocalStorage("twoSpoonsPastOrders"));
+	if (twoSpoonsPastOrders == null){
 		return 0;
 	}
-	return trPastOrders.length;
+	return twoSpoonsPastOrders.length;
 }
 
 function roundsFromLsToGrids(){
 	console.log("roundsFromLsToGrids() start");
-	//look in LS for key: "trPastOrders"
+	//look in LS for key: "twoSpoonsPastOrders"
 	
-	let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-	console.log(trPastOrders);
-	if (trPastOrders == [] || trPastOrders == null){
-		console.log("roundsFromLsToGrids(), early exit condition met: trPastOrders == [] or null");
+	let twoSpoonsPastOrders = JSON.parse(loadFromLocalStorage("twoSpoonsPastOrders"));
+	console.log(twoSpoonsPastOrders);
+	if (twoSpoonsPastOrders == [] || twoSpoonsPastOrders == null){
+		console.log("roundsFromLsToGrids(), early exit condition met: twoSpoonsPastOrders == [] or null");
 		return;
 	}
-	console.log("Attempting to loop through trPastOrders");
-	for(let i = 0; i < trPastOrders.length; i++){
-		addOrderToGrids(trPastOrders[i].trOrderNumber, trPastOrders[i].orderList, trPastOrders[i].orderTotal);
+	console.log("Attempting to loop through twoSpoonsPastOrders");
+	for(let i = 0; i < twoSpoonsPastOrders.length; i++){
+		addOrderToGrids(twoSpoonsPastOrders[i].trOrderNumber, twoSpoonsPastOrders[i].orderList, twoSpoonsPastOrders[i].orderTotal);
 	}
 	console.log("roundsFromLsToGrids() finished");
 }
@@ -986,7 +986,7 @@ function placeOrder(){
 			"orderTotal": orderTotal
 		};
 		console.log(orderData);
-		appendToLocalStorageArray("trPastOrders", orderData);
+		appendToLocalStorageArray("twoSpoonsPastOrders", orderData);
 		
 		
 		addOrderToGrids(trOrderNumber, orderList, orderTotal);
