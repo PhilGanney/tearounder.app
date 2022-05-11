@@ -2,7 +2,7 @@
 const trURL = "https://tearounder.thinkablecloud.co.uk/"; //Used as a coding shorthand, to save us having to find or type the URL each time
 const localStorageKeyNameForCartKey = "DEMO_cart_key";  //This constant depends on which environment we are in (test, demo, live etc). Effectively a key to finding the cart_key for CoCart within localStorage. We store the current CoCart cart_key in localStorage. localStorage uses key value pairs, so the cart_key for CoCart is stored as a value (that can change) paired with a key that stays the same per environment (tests, demo, live etc)
 var trOrderNumber = 0;// 0 is a good default value, because we wouldn't actually use it
-
+const venue = "TheLoremIpsum";
 
 var teaRounderData = {
 	"Categories": {
@@ -539,24 +539,39 @@ function coCartUpdateTable(response){
 	let items = response.responseJSON.items;
 	var newHTML = "";
 	let itemData = "";
+	document.getElementById("drinks").innerHTML  = "";
+	
+	var trCurrentOrderList = JSON.parse(loadFromLocalStorage("trCurrentOrderList")); //Todo: we may need to wrap parse in a try catch or other handling of the data coming back as non JSON. Depends on the risk of that value being non-JSON, and wether errors in those scenarios are an issue
+	console.log(trCurrentOrderList);
 	for(i = 0; i < items.length; i++){
 		console.log("adding row for id " + items[i].id + " name: " + items[i].name + " qty: " + items[i].quantity.value + " price: " + items[i].price);
 		itemData = getItemDataByName(items[i].name);
 		console.log(itemData.escapedName);
-		newHTML += ("<tr id=\"" + itemData.escapedName + "\">"); //class=\"DrinkLine\"
-			newHTML += ("<td class=\"DrinkName\">" + items[i].name + "</td>"); 
-			newHTML += ("<td id=\"" + itemData.escapedName + "Amount\" class=\"Amount\">" + items[i].quantity.value + "</td>");
-			newHTML += ("<td class=\"DrinkLineControls\">");	
-				newHTML += ("<button class=\"BtnMore\" onclick=\"changeAmount('" + itemData.escapedName + "Amount', 1)\">+</button>");
-				//The - button needs to also have an item amount for a param. Todo: check if the class on this button is correct (looks wrong, likely inadvertantly changed when duplicating line above)
-				newHTML += ("<button class=\"BtnMore\" onclick=\"changeAmount('" + itemData.escapedName + "Amount', -1, '" + items[i].item_key  + "')\">-</button>");
-			newHTML += ("</td>");
-			newHTML += ("<td class=\"CostEach\">");
-				newHTML += (items[i].price / 100).toFixed(2);
-			newHTML += ("</td>");
-		newHTML += ("</tr>");
+		//add the HTML for this table row (the <tr> element)
+		addHTMLTrToDrinks(itemData.escapedName, items[i].name, itemData.escapedName + "Amount", items[i].quantity.value, (items[i].price / 100).toFixed(2));
+		/*check if we need to add any name inputs 
+			<input> elements for users to add a name of who's having the item
+			if itemData.escapedName is in our localStorage trCurrentOrderList 
+				then for every string in the names array
+					names array is index 2 of the drink line array
+				
+			Todo: if the whole app runs off localStorage as a go between, we could improve this code
+				as all the items would be in there not just ones with name inputs
+		*/
+		if(trCurrentOrderList != null){
+			for(j = 0; j < trCurrentOrderList.length; j++){
+				if(trCurrentOrderList[j][0] == itemData.escapedName){
+					for(k = 0; k < trCurrentOrderList[j][2].length; k++){
+						console.log("create an input");
+						//Then call a function that just adds the <tr>'s HERE
+						addNameInput(itemData.escapedName, k, trCurrentOrderList[j][2][k]);
+					}
+					break;
+				}
+			}
+		}
 	}
-	document.getElementById("drinks").innerHTML = newHTML; 
+	
 	//update total
 	document.getElementById("totalCostValue").innerHTML = (response.responseJSON.totals.total / 100).toFixed(2); 
 	//update quantity 
@@ -797,51 +812,36 @@ function newDrink(attemptDrink, startAmount) {
   //remove < and > symbols needed for html tags via a regex
   //I tried various other regexs to remove entire tags but they would take out too much or not always take out multiple tags - at this point in time it more acceptable to keep the i from <i> showing, than to spend hours being a perfectionist over this rather inconsequential issue 
   //Regex key: / = pattern starts or ends, [] = any symbol inside, g = every case of this pattern 
-  attemptDrink = attemptDrink.replace(/[<>]/g,"");
+	attemptDrink = attemptDrink.replace(/[<>]/g,"");
 
-  //prevent adding lines with no drink name
-  if (attemptDrink == ""){
-      return;
-  }
+	//prevent adding lines with no drink name
+	if (attemptDrink == ""){
+		return;
+	}
   
-  //attemptDrinkID is used for element Id's on the HTML we're about to generate for other functions to use, attemptDrink stays as what will be displayed to the user
-  var attemptDrinkID = escape(attemptDrink);
-  
-  let itemData = getItemDataByName(attemptDrink);
-  console.log(itemData);
-  let priceDecimal = (itemData.price / 100).toFixed(2);
-  
-  //I initially thought this line might mean that drinks with spaces in them wouldn't work but they do
-  //will still need some sanitizing
-  var attemptDrinkAmountID = attemptDrinkID + "Amount";
+	//attemptDrinkID is used for element Id's on the HTML we're about to generate for other functions to use, attemptDrink stays as what will be displayed to the user
+	var attemptDrinkID = escape(attemptDrink);
 
-  //avoid exact duplicates (to prevent odd looking behaviour that might occur after a user causes that to happen), if the drinks div has an element with the attemptDrinkID inside, then add 1 to the amount rather than carry on with the rest of this function
-  if(document.getElementById("drinks").contains(document.getElementById(attemptDrinkID))){
-	  changeAmount(attemptDrinkAmountID,1);
-	  return;
-  } else {
-			//newHTML exists to allow us to write the entire div to the innerHTML in one go, whilst allowing this code to be in the easiest to read form I can think of. It's important that this code is easy to read for me making changes and to make it easy to check there are no bugs orlocate them if needed
-		  var newHTML = "";
-		  newHTML += ("<tr id=\"" + attemptDrinkID + "\">"); //class=\"DrinkLine\"
-			newHTML += ("<td class=\"DrinkName\">" + attemptDrink + "</td>");	
-			newHTML += ("<td id=\"" + attemptDrinkAmountID + "\" class=\"Amount\">" + startAmount + "</td>");
-			newHTML += ("<td class=\"DrinkLineControls\">");	
-				newHTML += ("<button class=\"BtnMore\" onclick=\"changeAmount('" + attemptDrinkAmountID + "',1)\">+</button>");
-				newHTML += ("<button class=\"BtnLess\" onclick=\"changeAmount('" + attemptDrinkAmountID + "',-1)\">-</button>");
-			newHTML += ("</td>");
-			newHTML += ("<td class=\"CostEach\">");
-				newHTML += (priceDecimal);
-			newHTML += ("</td>");
-		  newHTML += ("</tr>");
-	  //write newHTML to the drinks table
-	  document.getElementById("drinks").innerHTML += newHTML; 
-	  //Have to add to the totals as well via changeTotals(addToQuantity, addToBill)
-	  changeTotals(1,priceDecimal);
+	let itemData = getItemDataByName(attemptDrink);
+	console.log(itemData);
+	let priceDecimal = (itemData.price / 100).toFixed(2);
 
-	  //make sure the order button is activated (since it's disabled at start)
-	  document.getElementById("orderDrinks").disabled = "";
-	  coCartAddItem(itemData.id.toString());
-  }
+	//I initially thought this line might mean that drinks with spaces in them wouldn't work but they do
+	//will still need some sanitizing
+	var attemptDrinkAmountID = attemptDrinkID + "Amount";
+
+	//avoid exact duplicates (to prevent odd looking behaviour that might occur after a user causes that to happen), if the drinks div has an element with the attemptDrinkID inside, then add 1 to the amount rather than carry on with the rest of this function
+	if(document.getElementById("drinks").contains(document.getElementById(attemptDrinkID))){
+		changeAmount(attemptDrinkAmountID,1);
+		return;
+	} else {//HERE
+		addHTMLTrToDrinks(attemptDrinkID, attemptDrink, attemptDrinkAmountID, startAmount, priceDecimal);
+		//Have to add to the totals as well via changeTotals(addToQuantity, addToBill)
+		changeTotals(1,priceDecimal);
+		//make sure the order button is activated (since it's disabled at start)
+		document.getElementById("orderDrinks").disabled = "";
+		coCartAddItem(itemData.id.toString());
+	}
   /*
   //totalCostValue
   var oldTotalCost = parseFloat(document.getElementById("totalCostValue").innerHTML);
@@ -851,6 +851,30 @@ function newDrink(attemptDrink, startAmount) {
   //alert(newTotalCost);
   document.getElementById("totalCostValue").innerHTML = newTotalCost; */
   console.groupEnd();
+}
+
+function addHTMLTrToDrinks(attemptDrinkID, attemptDrink, attemptDrinkAmountID, amount, priceDecimal){
+	/*newHTML exists to allow us to write the entire div to the innerHTML in one go, 
+		whilst allowing this code to be in the easiest to read form I can think of, with indentation for the HTML.
+		Todo: code cleanup / make less brittle by using appendChild instead of innerHTML - see addNameInput for example
+	*/
+	
+	let itemData = getItemDataByName(attemptDrink);
+	var newHTML = "";
+	newHTML += ("<tr id=\"" + attemptDrinkID + "\">"); //class=\"DrinkLine\"
+		newHTML += ("<td class=\"DrinkName\">" + attemptDrink + "</td>");	
+		newHTML += ("<td><button class=\"BtnNote\" onclick=\"btnAddName('" + itemData.escapedName + "')\">✏️</button></td>");
+		newHTML += ("<td id=\"" + attemptDrinkAmountID + "\" class=\"Amount\">" + amount + "</td>");
+		newHTML += ("<td class=\"DrinkLineControls\">");	
+			newHTML += ("<button class=\"BtnMore\" onclick=\"changeAmount('" + attemptDrinkAmountID + "',1)\">+</button>");
+			newHTML += ("<button class=\"BtnLess\" onclick=\"changeAmount('" + attemptDrinkAmountID + "',-1)\">-</button>");
+		newHTML += ("</td>");
+		newHTML += ("<td class=\"CostEach\">");
+			newHTML += (priceDecimal);
+		newHTML += ("</td>");
+	newHTML += ("</tr>");
+	//write newHTML to the drinks table
+	document.getElementById("drinks").innerHTML += newHTML; 
 }
 
 function showViaClass(id){
@@ -959,25 +983,62 @@ function addOrderToGrids(orderNum, roundList, orderTotal){
 	console.log("roundList is: ");
 	console.log(roundList);
 	
+	let tbodyEl = document.createElement("tbody"); // <tbody> element
+	tbodyEl.id = orderNum.toString() + "detailsTbody";
+	tbodyEl.setAttribute("class", "hidden");
+	
+	let drinkTrEl; //drink <tr> element (a row in the table)
+	let drinkNameTdEl; //drink name <td> element (table cell for the drink name)
+	let drinkAmountTdEl; //drink amount <td> element (table cell for the drink amount)
+	let costEachTdEl; //cost each <td> element (table cell for the cost per item)
+	let controlsTdEl; //controls <td> element (table cell that is a container for reorder button)
+	let reorderBtnEl; // reorder <button> element (marked "Add to list")
 	for (var i=0; i < roundList.length; i++) { 
 		itemData = getItemDataByName(roundList[i][0]);
 		console.log(itemData);
 		priceDecimal = (itemData.price / 100).toFixed(2);
-		newHTML += ("<tr id=\"" + itemData.escapedName + "\">");
-		newHTML += ("<td class=\"DrinkName\">" + itemData.name + "</td>");	
-		newHTML += ("<td id=\"" + itemData.escapedName + orderNum + "\" class=\"Amount\">" + roundList[i][1] + "</td>");
-		newHTML += ("<td class=\"CostEach\">");
-		newHTML += (priceDecimal);
-		newHTML += ("</td>");
-		newHTML += ("<td class=\"Controls\">");
+		drinkTrEl = document.createElement("tr");
+		drinkTrEl.id = itemData.escapedName;
+		//newHTML += ("<tr id=\"" + itemData.escapedName + "\">"); //done
+		drinkNameTdEl = document.createElement("td");
+		drinkNameTdEl.setAttribute('class', "DrinkName");
+		drinkNameTdEl.innerText = itemData.name;
+		drinkTrEl.appendChild(drinkNameTdEl);
+		//newHTML += ("<td class=\"DrinkName\">" + itemData.name + "</td>");	//done
+		drinkAmountTdEl = document.createElement("td");
+		drinkAmountTdEl.id = (itemData.escapedName + orderNum);
+		drinkAmountTdEl.setAttribute('class', "Amount");
+		drinkAmountTdEl.innerText = roundList[i][1];
+		drinkTrEl.appendChild(drinkAmountTdEl);
+		//newHTML += ("<td id=\"" + itemData.escapedName + orderNum + "\" class=\"Amount\">" + roundList[i][1] + "</td>"); //done
+		costEachTdEl = document.createElement("td");
+		costEachTdEl.setAttribute('class', "CostEach");
+		costEachTdEl.innerText = priceDecimal;
+		drinkTrEl.appendChild(costEachTdEl);
+		//newHTML += ("<td class=\"CostEach\">"); //done
+		//newHTML += (priceDecimal); //done
+		//newHTML += ("</td>"); //done
+		controlsTdEl = document.createElement("td");
+		controlsTdEl.setAttribute('class', "Controls");
+		//need to make the button and put that inside controlsTdEl before putting controlsTdEl into drinkTrEl
+		//newHTML += ("<td class=\"Controls\">"); //done
 				   //<button onclick="newDrink('NAME', 1)">Add to list</button>
-		newHTML += ("<button onclick=\"newDrink('" + itemData.escapedName + "', 1)\">Add to list</button");
-		newHTML += ("</td>");
-		newHTML += ("</tr>");
+		reorderBtnEl = document.createElement("button");
+		reorderBtnEl.setAttribute('onclick', "newDrink('"+ itemData.escapedName + "', 1)");
+		reorderBtnEl.innerText = "Add to list";
+		controlsTdEl.appendChild(reorderBtnEl);
+		drinkTrEl.appendChild(controlsTdEl);
+		//newHTML += ("<button onclick=\"newDrink('" + itemData.escapedName + "', 1)\">Add to list</button"); //done
+		//newHTML += ("</td>");
+		//newHTML += ("</tr>"); //done
+		tbodyEl.appendChild(drinkTrEl); //put the entire row into the tbody
 	}
 	 
 
-	  /*put the entire drinks list inside a new tbody with class .hidden set, inside table with id "previousOrderItems"
+	  /*(Todo: this comment will be out of date since 04/05/2022 
+			when I moved from writing the tbody in one big string to using appendChild
+		)
+	  put the entire drinks list inside a new tbody with class .hidden set, inside table with id "previousOrderItems"
 		For example, with an order number 302
 		<table id="previousOrderItems" ...>
 		<table/>
@@ -989,7 +1050,9 @@ function addOrderToGrids(orderNum, roundList, orderTotal){
 			<tbody/>
 		<table/>
 	    */
-	  document.getElementById("previousOrderItems").innerHTML += ("<tbody id=\"" + orderNum.toString() + "detailsTbody\" class=\"hidden\">" + newHTML + "</tbody>");
+	//put tbodyEl into previousOrderItems
+	document.getElementById("previousOrderItems").appendChild(tbodyEl);
+	  //document.getElementById("previousOrderItems").innerHTML += ("<tbody id=\"" + orderNum.toString() + "detailsTbody\" class=\"hidden\">" + newHTML + "</tbody>");
 }
 
 function getListItemAmounts(listID){
@@ -997,10 +1060,27 @@ function getListItemAmounts(listID){
 	let uniqueItems = document.getElementById(listID).getElementsByClassName("Amount");
 	let result = [];
 	let inner = [];
+	//trCurrentOrderList needed from localStorage
+	var trCurrentOrderList = JSON.parse(loadFromLocalStorage("trCurrentOrderList")); //Todo: we may need to wrap parse in a try catch or other handling of the data coming back as non JSON. Depends on the risk of that value being non-JSON, and wether errors in those scenarios are an issue
 	for (var i=0; i < uniqueItems.length; i++) {
 		inner = [];
+		//item name
 		inner[0] = uniqueItems[i].id.slice(0, (uniqueItems[i].id.length - 6)); //chop off the word "Amount"
+		//amount 
 		inner[1] = uniqueItems[i].innerHTML;
+		//names array - fill by looking in trCurrentOrderList for the item name
+		inner[2] = [];
+		for (var j=0; j < trCurrentOrderList.length; j++) {
+			if(trCurrentOrderList[j][0] == inner[0]){
+				console.log(inner[0] + " found in trCurrentOrderList");
+				//remove all "❌ Remove box" values, to prevent them being copied
+				let trCurrentOrderList2 = trCurrentOrderList[j][2].filter(function(x) {
+					return x !== '❌ Remove box';
+				});
+				console.log(trCurrentOrderList2);
+				inner[2] = [...trCurrentOrderList2]; //... clones - see https://www.samanthaming.com/tidbits/35-es6-way-to-clone-an-array/
+			}
+		}
 		result.push(inner);
 	}
 	console.log(result);
@@ -1028,7 +1108,9 @@ function roundsFromLsToGrids(){
 	}
 	console.log("Attempting to loop through trPastOrders");
 	for(let i = 0; i < trPastOrders.length; i++){
-		addOrderToGrids(trPastOrders[i].trOrderNumber, trPastOrders[i].orderList, trPastOrders[i].orderTotal);
+		if(trPastOrders[i].venue == venue){
+			addOrderToGrids(trPastOrders[i].trOrderNumber, trPastOrders[i].orderList, trPastOrders[i].orderTotal);
+		}
 	}
 	console.log("roundsFromLsToGrids() finished");
 }
@@ -1041,6 +1123,8 @@ function placeOrder(){
 		That new tr will need to have a clickable/tappable bit, where a modal pops up showing the full list for that order - pretty much everything from "your list" except the buttons
 			
 		TODO: get a confirmation of the order going through
+		
+		TODO: Doing next: saving the names into orders
 	*/
 	console.groupCollapsed("placeOrder");
 	if(confirm("Ready to order? (DEMO)")){
@@ -1050,6 +1134,7 @@ function placeOrder(){
 		var orderList = getListItemAmounts("drinks");
 		var orderTotal = (parseFloat(document.getElementById("totalCostValue").innerHTML)).toFixed(2);
 		let orderData = {
+			"venue": venue,
 			"trOrderNumber": trOrderNumber,
 			"orderList": orderList,
 			"orderTotal": orderTotal
@@ -1070,4 +1155,118 @@ function resetDrinks(){
 	document.getElementById("orderDrinks").disabled = "disabled";
 	document.getElementById("totalQuantity").innerHTML  = 0;
 	document.getElementById("totalCostValue").innerHTML  = 0;
+	saveToLocalStorage("trCurrentOrderList", "[]");
+}
+
+/**Names feature: Locally storing names of people against items rows**/
+//var trCurrentOrderList = JSON.parse(loadFromLocalStorage("trCurrentOrderList")); //use this within funcs
+
+function btnAddName(drink){
+//adding an <input> element for users to put a name into, in the table row for a given drink
+	console.groupCollapsed("addName");
+	var trCurrentOrderList = JSON.parse(loadFromLocalStorage("trCurrentOrderList")); //Todo: we may need to wrap parse in a try catch or other handling of the data coming back as non JSON. Depends on the risk of that value being non-JSON, and wether errors in those scenarios are an issue
+	console.log(trCurrentOrderList);
+	
+	//Our input element will need a unique ID
+	  //Inputs Id format idea 1: start with itemName then "Name" then an int representing what index it would have if it where in an array of these input boxes
+	let inputId = "";
+	let nextInt = 0;
+	
+	
+	if(trCurrentOrderList == null){
+	//there's no localStorage key for data of the current order at all
+		//nextInt will stay as 0, but we need to write trCurrentOrderList
+		//format at start is  [["drinknNameHere", "", [""]]]  eg [["Coffee", "", [""]]]
+		trCurrentOrderList = "[[\"" + drink + "\", \"\", [\"\"]]]";
+		//localStorage requires a string
+		saveToLocalStorage("trCurrentOrderList", trCurrentOrderList); //trCurrentOrderList already in string form, so JSON.stringify not needed and would require us to JSON.parse the string first to avoid extra backslashes
+	} else {
+	//there is a localStorage key for trCurrentOrderList
+		//loop through looking for the drink name
+		console.log("Looking through trCurrentOrderList");
+		let found = false;
+		for(i = 0; i < trCurrentOrderList.length; i++){
+			console.log(trCurrentOrderList[i][0]);
+			if(trCurrentOrderList[i][0] == drink){
+				console.log("Found the item, adding empty string to LS to represent an empty input");
+				found = true;
+				trCurrentOrderList[i][2].push(""); //add an empty string to our array of name input values
+				nextInt = trCurrentOrderList[i][2].length - 1;
+				break;
+			}
+		}
+		if(found == false){
+			console.log("Didn't find the item, adding new item line");
+			trCurrentOrderList.push(JSON.parse("[\"" + drink + "\", \"\", [\"\"]]"));
+		}
+		saveToLocalStorage("trCurrentOrderList", JSON.stringify(trCurrentOrderList));
+		
+	}
+	
+	addNameInput(drink, nextInt);
+	console.groupEnd();
+}
+
+function addNameInput(drink, elemInt, value = ""){
+	if(value == "❌ Remove box"){ 
+	/*	This if(){ return} is a workaround for bugs elsewhere, caused by deleting <input>'s when other code uses the id's for array indexes.
+			addNameInput is used everytime we add an <input> for the name of someone having a drink,
+				including when updating the table, or reloading the page
+			"❌ Remove box" in localStorage represents where there was an <input> but the user deleted it
+			html id's of name <input>'s have to match up with array indexs in our localStorage
+			So we don't create <input>'s if the value is "❌ Remove box", but other code will increment the elemInt
+	*/
+		return;
+	}
+	//drink gets us the items name
+	inputId = drink + "Name" + elemInt;
+	let drink2 = drink.replace(/%/g, "\\%"); //escaping all the % symbols that are there to escape spaces, so that the querySelector will work!
+	console.log("querySelector for the drink row: #drinks #" + drink2 + " .DrinkName");
+	//Todo (harder than it looks, only makes code better, might be easier now that we're using appendChild not innerHTML+= ) I couldn't get proper event listener working here (could in standalone page though)
+		//used: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event for reference
+	//using createElement, setAttribute and appendChild rather than appending to innerHTML means that any user text in other inputs in that drink row are not erased
+	let inputEl = document.createElement("input");
+	inputEl.id = inputId;
+	inputEl.setAttribute('list', "peopleNames");
+	inputEl.setAttribute('type', "search");
+	inputEl.setAttribute('class', "peopleNameBox");
+	inputEl.setAttribute('value', value);
+	inputEl.setAttribute('oninput', 'updateName(this)');
+	document.querySelector("#drinks #" + drink2 + " .DrinkName").appendChild(inputEl);
+}
+
+function removeNameInput(querySelector){
+	let querySelector2 = querySelector.replace(/%/g, "\\%");//escaping all the % symbols that are there to escape spaces, so that the querySelector will work!
+	let element = document.querySelector(querySelector2);
+	element.remove();
+}
+
+function updateName(e){
+	console.groupCollapsed("updateName");
+	//e is the input element that called this, e.value will be the full current value that has been typed into it
+	console.log(e);
+	console.log(e.value);
+	//we need to save e.value to correct array index in trCurrentOrderList
+	//first get the trCurrentOrderList as a var here
+	var trCurrentOrderList = JSON.parse(loadFromLocalStorage("trCurrentOrderList")); //Todo: we may need to wrap parse in a try catch or other handling of the data coming back as non JSON. Depends on the risk of that value being non-JSON, and wether errors in those scenarios are an issue
+	console.log(e.id);
+	var drink = e.parentNode.parentNode.id; //todo: this code is very dependant on the UI nesting!
+	var inputNum = e.id.replace(e.parentNode.parentNode.id + "Name", '');
+	console.log("searching for: " + drink);
+	console.log("inputNum: " + inputNum);
+	if(e.value == "❌ Remove box"){
+		console.log("removing box: " + e.id);
+		removeNameInput("#" + e.id);
+	}
+	for(i = 0; i < trCurrentOrderList.length; i++){
+		console.log(trCurrentOrderList[i][0]);
+		if(trCurrentOrderList[i][0] == drink){
+			console.log("Found the item");
+			
+			trCurrentOrderList[i][2][inputNum] = e.value;
+			break;
+		}
+	}
+	saveToLocalStorage("trCurrentOrderList", JSON.stringify(trCurrentOrderList));
+	console.groupEnd();
 }

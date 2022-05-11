@@ -2,7 +2,7 @@
 const trURL = "https://tearounder.thinkablecloud.co.uk/"; //Used as a coding shorthand, to save us having to find or type the URL each time
 const localStorageKeyNameForCartKey = "DEMO_cart_key";  //This constant depends on which environment we are in (test, demo, live etc). Effectively a key to finding the cart_key for CoCart within localStorage. We store the current CoCart cart_key in localStorage. localStorage uses key value pairs, so the cart_key for CoCart is stored as a value (that can change) paired with a key that stays the same per environment (tests, demo, live etc)
 var trOrderNumber = 0;// 0 is a good default value, because we wouldn't actually use it
-
+const venue = "ThreeCups";
 
 var teaRounderData = {
 	"Categories": {
@@ -316,6 +316,7 @@ function getItemDataByName(name){
 		};//
 	} else {
 		console.log("product not found");
+		console.log(JSON.parse(JSON.stringify(name))); //stringifying and parsing to make sure the log doesn't change as name changes value, as per mdn recommendation: https://developer.mozilla.org/en-US/docs/Web/API/console/log
 		return {
 			"id": 0,
 			"name": "Error: Product not found",
@@ -1228,7 +1229,9 @@ function roundsFromLsToGrids(){
 	}
 	console.log("Attempting to loop through threeCupsPastOrders");
 	for(let i = 0; i < threeCupsPastOrders.length; i++){
-		addOrderToGrids(threeCupsPastOrders[i].trOrderNumber, threeCupsPastOrders[i].orderList, threeCupsPastOrders[i].orderTotal);
+		if(threeCupsPastOrders[i].venue == venue){
+			addOrderToGrids(threeCupsPastOrders[i].trOrderNumber, threeCupsPastOrders[i].orderList, threeCupsPastOrders[i].orderTotal);
+		}
 	}
 	console.log("roundsFromLsToGrids() finished");
 }
@@ -1252,6 +1255,7 @@ function placeOrder(){
 		var orderList = getListItemAmounts("drinks");
 		var orderTotal = (parseFloat(document.getElementById("totalCostValue").innerHTML)).toFixed(2);
 		let orderData = {
+			"venue": venue,
 			"trOrderNumber": trOrderNumber,
 			"orderList": orderList,
 			"orderTotal": orderTotal

@@ -80,6 +80,15 @@ function getItemDataByName(name){
 			"escapedName": "Earl%20Grey%20Trade%20Pack",
 			"price": 4500
 		};
+	}  else {
+		console.log("product not found");
+		console.log(JSON.parse(JSON.stringify(name))); //stringifying and parsing to make sure the log doesn't change as name changes value, as per mdn recommendation: https://developer.mozilla.org/en-US/docs/Web/API/console/log
+		return {
+			"id": 0,
+			"name": "Error: Product not found",
+			"escapedName": "Error%20Product%20not%20found",
+			"price": 0
+		};
 	}
 }
 

@@ -101,6 +101,15 @@ select.filter{
 
 input{
 	box-sizing: border-box; /*Specifies how the visible height and width should be calculated with regard to padding - weirdly the default for inputs is different to most other UI. I could do this with a sweeping reset, but I'd rather just alter elements that I find unintuitive as and when I come across them*/
+	height: 32px;
+}
+
+.peopleNameBox{
+	margin-left: 8px;
+	margin-bottom: 1px;
+	margin-top: 2px;
+	width: 8em;
+	display: grid;
 }
 
 select{
@@ -240,7 +249,6 @@ select{
 	
 	border-radius: 5px;
 }
-
 
 .Selected{
 	border-style: inset;
