@@ -1,6 +1,8 @@
 <?php
-    if (3 == 1) {
-	} else {
-		header('location:https://tearounder.app/index.html');
-	}
+    echo $_SERVER['REQUEST_URI'];
+	
+	//if () {
+	//} else {
+	//	header('location:https://tearounder.app/index.html');
+	//}
 ?>
