@@ -8,7 +8,8 @@
 				header('location:https://tearounder.app/TheLoremIpsum/menu.html');
 				break;
 			default:
-				header('location:https://tearounder.app/index.html');
+				echo $_SERVER['REQUEST_URI'];
+				echo pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME);
 		}
 	} else {
 		header('location:https://tearounder.app/index.html');
