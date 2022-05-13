@@ -4,11 +4,11 @@
 			header('location:https://tearounder.app/TheLoremIpsum/info.html');
 			return;
 		}
-		switch (pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME)){
-			case "/ThreeCups":
+		switch (strtolower(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME))){
+			case "/threecups":
 				header('location:https://tearounder.app/ThreeCups/menu.html');
 				break;
-			case "/TheLoremIpsum":
+			case "/theloremipsum":
 				header('location:https://tearounder.app/TheLoremIpsum/menu.html');
 				break;
 			default:
