@@ -112,6 +112,10 @@ input{
 	display: grid;
 }
 
+.PeopleNames{
+	font-style: italic;
+}
+
 select{
 	width: 100%;
 }
@@ -404,6 +408,7 @@ table{
   margin-right: auto;
 }
 
+
 thead tr th{
 	border-bottom: 1px double gray;
 }
@@ -421,6 +426,11 @@ tbody tr td{
 	left: 0px;
 	text-align: left;
 	margin-right: 4%;
+}
+
+#previousOrderItems tbody tr .DrinkName{
+	overflow-wrap: break-word;
+	width: 60px;
 }
 
 .DrinkLineControls {

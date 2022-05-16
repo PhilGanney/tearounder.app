@@ -290,8 +290,6 @@ function startUp(){
 	
 	roundsFromLsToGrids();
 	console.log("startup finished (some async functions might still be going)");
-	//Leave the alert below in for the demo!!
-	alert("This is a demo that is a work in progress");
 	console.groupEnd();
 }
 
@@ -555,6 +553,7 @@ function coCartUpdateTable(response){
 	for(i = 0; i < items.length; i++){
 		console.log("adding row for id " + items[i].id + " name: " + items[i].name + " qty: " + items[i].quantity.value + " price: " + items[i].price);
 		itemData = getItemDataByName(items[i].name);
+		console.log(itemData); 
 		console.log(itemData.escapedName);
 		//add the HTML for this table row (the <tr> element)
 		addHTMLTrToDrinks(itemData.escapedName, items[i].name, itemData.escapedName + "Amount", items[i].quantity.value, (items[i].price / 100).toFixed(2));
@@ -989,6 +988,7 @@ function addOrderToGrids(orderNum, roundList, orderTotal){
 	newHTML = "";
 	let itemData = ""; 
 	let priceDecimal = "";
+	let peopleNames = [];
 	console.log("roundList is: ");
 	console.log(roundList);
 	
@@ -998,48 +998,77 @@ function addOrderToGrids(orderNum, roundList, orderTotal){
 	
 	let drinkTrEl; //drink <tr> element (a row in the table)
 	let drinkNameTdEl; //drink name <td> element (table cell for the drink name)
+	let lineBreakBrEl; //just a <br> to put the people names on a new line from item name
+	let peopleNamesSpanEl; //list of peoples names <span> element (spans don't cause table css issues unlike p's)
 	let drinkAmountTdEl; //drink amount <td> element (table cell for the drink amount)
 	let costEachTdEl; //cost each <td> element (table cell for the cost per item)
 	let controlsTdEl; //controls <td> element (table cell that is a container for reorder button)
 	let reorderBtnEl; // reorder <button> element (marked "Add to list")
+	/*Example row
+		<tr id="Peppermint%20tea">
+			<td class="DrinkName">Peppermint tea
+				<p class="People">Alice, Bob</p>
+			</td>
+			<td id="Peppermint%20tea2" class="Amount">1</td>
+			<td class="CostEach">3.00</td>
+			<td class="Controls">
+				<button onclick="newDrink('Peppermint%20tea', 1)">Add to list</button>
+			</td>
+		</tr>
+	*/
 	for (var i=0; i < roundList.length; i++) { 
+		//getting and prepping data
 		itemData = getItemDataByName(roundList[i][0]);
 		console.log(itemData);
 		priceDecimal = (itemData.price / 100).toFixed(2);
+		peopleNames = roundList[i][2].join(', '); //without .join(', ') js converts the array to a comma seperated string with no spaces anywhere
+		console.log(peopleNames);
+		
+		//equivalent of:  ("<tr id=\"" + itemData.escapedName + "\">"  +  "</tr>"); 
 		drinkTrEl = document.createElement("tr");
 		drinkTrEl.id = itemData.escapedName;
-		//newHTML += ("<tr id=\"" + itemData.escapedName + "\">"); //done
+		
+		//equivalent of:  	("<td class=\"DrinkName\">" + itemData.name + "</td>"); 
 		drinkNameTdEl = document.createElement("td");
 		drinkNameTdEl.setAttribute('class', "DrinkName");
 		drinkNameTdEl.innerText = itemData.name;
-		drinkTrEl.appendChild(drinkNameTdEl);
-		//newHTML += ("<td class=\"DrinkName\">" + itemData.name + "</td>");	//done
+		drinkTrEl.appendChild(drinkNameTdEl); //places the <td> inside the <tr>
+		
+		//NEW br going in: <br/>
+		lineBreakBrEl = document.createElement("br"); //I initially thought this could be done out of the loop but that only created one element and then appendChild dragged it to the last row
+		drinkNameTdEl.appendChild(lineBreakBrEl); //places the <br/> inside the <td>
+		
+		//NEW span going in: <span class="People">Alice, Bob</span>
+		peopleNamesSpanEl = document.createElement("span");
+		peopleNamesSpanEl.setAttribute('class', "PeopleNames");
+		peopleNamesSpanEl.innerText = peopleNames; //
+		drinkNameTdEl.appendChild(peopleNamesSpanEl); //places the <span> inside the <td>
+		
+		//equivalent of:  	("<td id=\"" + itemData.escapedName + orderNum + "\" class=\"Amount\">" + roundList[i][1] + "</td>");
 		drinkAmountTdEl = document.createElement("td");
 		drinkAmountTdEl.id = (itemData.escapedName + orderNum);
 		drinkAmountTdEl.setAttribute('class', "Amount");
 		drinkAmountTdEl.innerText = roundList[i][1];
-		drinkTrEl.appendChild(drinkAmountTdEl);
-		//newHTML += ("<td id=\"" + itemData.escapedName + orderNum + "\" class=\"Amount\">" + roundList[i][1] + "</td>"); //done
+		drinkTrEl.appendChild(drinkAmountTdEl); //places the <td> inside the <tr>
+		
+		//equivalent of:  	("<td class=\"CostEach\">") + priceDecimal + ("</td>"); 
 		costEachTdEl = document.createElement("td");
 		costEachTdEl.setAttribute('class', "CostEach");
 		costEachTdEl.innerText = priceDecimal;
-		drinkTrEl.appendChild(costEachTdEl);
-		//newHTML += ("<td class=\"CostEach\">"); //done
-		//newHTML += (priceDecimal); //done
-		//newHTML += ("</td>"); //done
+		drinkTrEl.appendChild(costEachTdEl); //places the <td> inside the <tr>
+		
+		//equivalent of:  	("<td class=\"Controls\">");
 		controlsTdEl = document.createElement("td");
 		controlsTdEl.setAttribute('class', "Controls");
-		//need to make the button and put that inside controlsTdEl before putting controlsTdEl into drinkTrEl
-		//newHTML += ("<td class=\"Controls\">"); //done
-				   //<button onclick="newDrink('NAME', 1)">Add to list</button>
+		//NB: make buttons inside controlsTdEl before putting controlsTdEl into drinkTrEl
+		
+		//equivalent of:  		("<button onclick=\"newDrink('" + itemData.escapedName + "', 1)\">Add to list</button");
 		reorderBtnEl = document.createElement("button");
 		reorderBtnEl.setAttribute('onclick', "newDrink('"+ itemData.escapedName + "', 1)");
 		reorderBtnEl.innerText = "Add to list";
-		controlsTdEl.appendChild(reorderBtnEl);
-		drinkTrEl.appendChild(controlsTdEl);
-		//newHTML += ("<button onclick=\"newDrink('" + itemData.escapedName + "', 1)\">Add to list</button"); //done
-		//newHTML += ("</td>");
-		//newHTML += ("</tr>"); //done
+		controlsTdEl.appendChild(reorderBtnEl); //places the <button> inside the controls <td>
+		drinkTrEl.appendChild(controlsTdEl); //places the controls <td> inside the <tr>
+		
 		tbodyEl.appendChild(drinkTrEl); //put the entire row into the tbody
 	}
 	 
@@ -1061,7 +1090,6 @@ function addOrderToGrids(orderNum, roundList, orderTotal){
 	    */
 	//put tbodyEl into previousOrderItems
 	document.getElementById("previousOrderItems").appendChild(tbodyEl);
-	  //document.getElementById("previousOrderItems").innerHTML += ("<tbody id=\"" + orderNum.toString() + "detailsTbody\" class=\"hidden\">" + newHTML + "</tbody>");
 }
 
 function getListItemAmounts(listID){
