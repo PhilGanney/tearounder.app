@@ -738,9 +738,15 @@ function addOrderToGrids(orderNum, orderDateTime, roundList, orderTotal){
 	console.log(orderTotal);
 	console.log("roundList = (next line)");
 	console.log(roundList);
+	let displayDateTime = "";
+	if (typeof orderDateTime !== 'undefined'){
+		displayDateTime = orderDateTime.substring(0, orderDateTime.length - 3);
+	} else {
+		displayDateTime = "(before 19/05/2022)";
+	}
 	var newHTML = "";
 	  newHTML += ("<tr>");  				//row tag open
-	  newHTML += "<td>"  + orderDateTime.substring(0, orderDateTime.length - 3);	//table cell tag open 	date and time without the milliseconds
+	  newHTML += "<td>"  + displayDateTime;	//table cell tag open 	date and time without the milliseconds OR a standin if order was done before dates where recorded (ie during demo dev iterations)
 	  newHTML += "</td>"; 						//table cell tag close
 	  newHTML += "<td>";  						//table cell tag open	Items
 	  newHTML += ("<button class=\"BtnOrderItems\" onclick=\"showOrderItems('" + orderNum + "')\">Show Items</button>");  				//button for showing the orders item list
