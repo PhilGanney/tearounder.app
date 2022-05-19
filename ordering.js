@@ -725,8 +725,8 @@ function showOrderItems(orderId){
 	document.getElementById(orderId.toString() + "detailsTbody").classList = "default";
 }
 
-function addOrderToGrids(orderNum, roundList, orderTotal){
-	//console.log("addOrderToList called");
+function addOrderToGrids(orderNum, orderDateTime, roundList, orderTotal){
+	console.log("addOrderToList called");
 	//code based on the code in newDrink for adding items to the list
 	//newHTML exists to allow us to write the entire div to the innerHTML in one go, whilst allowing this code to be in the easiest to read form I can think of. It's important that this code is easy to read for me making changes and to make it easy to check there are no bugs or locate them if needed                 
 	/*		Matching header collumn						Whats going in these rows
@@ -736,9 +736,11 @@ function addOrderToGrids(orderNum, roundList, orderTotal){
 			<th class="OrderStatus">Status</th> 		"Status"	
 	*/
 	console.log(orderTotal);
+	console.log("roundList = (next line)");
+	console.log(roundList);
 	var newHTML = "";
 	  newHTML += ("<tr>");  				//row tag open
-	  newHTML += "<td>"  + orderNum.toString();	//table cell tag open	Order #
+	  newHTML += "<td>"  + orderDateTime.substring(0, orderDateTime.length - 3);	//table cell tag open 	date and time without the milliseconds
 	  newHTML += "</td>"; 						//table cell tag close
 	  newHTML += "<td>";  						//table cell tag open	Items
 	  newHTML += ("<button class=\"BtnOrderItems\" onclick=\"showOrderItems('" + orderNum + "')\">Show Items</button>");  				//button for showing the orders item list
@@ -922,7 +924,7 @@ function roundsFromLsToGrids(){
 	console.log("Attempting to loop through trPastOrders");
 	for(let i = 0; i < trPastOrders.length; i++){
 		if(trPastOrders[i].venue == venue){
-			addOrderToGrids(trPastOrders[i].trOrderNumber, trPastOrders[i].orderList, trPastOrders[i].orderTotal);
+			addOrderToGrids(trPastOrders[i].trOrderNumber, trPastOrders[i].orderDateTime,  trPastOrders[i].orderList, trPastOrders[i].orderTotal);
 		}
 	}
 	console.log("roundsFromLsToGrids() finished");
@@ -944,19 +946,21 @@ function placeOrder(){
 		console.log("User confirmed: ready to order");
 		trOrderNumber = getHighestTrOrderNum() + 1;
 		coCartGoToCheckout();
+		let orderDateTime = new Date().toLocaleString('en-GB');
 		var orderList = getListItemAmounts("drinks");
 		var orderTotal = (parseFloat(document.getElementById("totalCostValue").innerHTML)).toFixed(2);
 		let orderData = {
 			"venue": venue,
 			"trOrderNumber": trOrderNumber,
 			"orderList": orderList,
-			"orderTotal": orderTotal
+			"orderTotal": orderTotal,
+			"orderDateTime": orderDateTime,
 		};
 		console.log(orderData);
 		appendToLocalStorageArray("trPastOrders", orderData);
 		
 		
-		addOrderToGrids(trOrderNumber, orderList, orderTotal);
+		addOrderToGrids(trOrderNumber, orderDateTime, orderList, orderTotal);
 		resetDrinks();
     }
 	console.groupEnd();
