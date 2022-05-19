@@ -2,235 +2,31 @@
 const trURL = "https://tearounder.thinkablecloud.co.uk/"; //Used as a coding shorthand, to save us having to find or type the URL each time
 const localStorageKeyNameForCartKey = "DEMO_cart_key";  //This constant depends on which environment we are in (test, demo, live etc). Effectively a key to finding the cart_key for CoCart within localStorage. We store the current CoCart cart_key in localStorage. localStorage uses key value pairs, so the cart_key for CoCart is stored as a value (that can change) paired with a key that stays the same per environment (tests, demo, live etc)
 var trOrderNumber = 0;// 0 is a good default value, because we wouldn't actually use it
-const venue = "TheLoremIpsum";
+var thisURLArray =  window.location.href.split( '/' );
+var venue = thisURLArray[thisURLArray.length - 2]
+console.log("venue is: " + venue);
 
-var teaRounderData = {
-	"Categories": {
-		"Hot Drinks": { 
-			"listingTemplate": "Default", 
-			"mainSelects": [ 
-				["Coffee", "Decaf Coffee", "Decaf Tea", "Horlicks", "Hot Chocolate", "Ovaltine", "Tea"]
-			]
-		},
-		"Juices": { 
-			"listingTemplate": "Default",
-			"mainSelects": [ 
-				["Apple Juice", "Cloudy Apple Juice", "Orange Juice", "Pineapple Juice", "Tropical Juice"]
-			]
-		},
-		"Fizzy Drinks": { 
-			"listingTemplate": "Default",
-			"mainSelects": [ 
-				["Cloudy Lemonade", "Coke", "Cola", "Lemonade", "Orangeade", "Pepsi"]
-			]
-		},	
-		"Wines": { 
-			"listingTemplate": "Default", 
-			"mainSelects": [ 
-				["White Wine 125ml", "White Wine 175ml", "White Wine 250ml"]
-			]
-		}
-	}
-}; //End of big load of data
-
-/*CoCart function (stand in)
-	//TODO: replace this quick and dirty hardcoded info lookup 
-	(We agreed that hardcoded products would be okay for the demo 
-	HOWEVER, it may actually turn out quicker to properly code this than hardcode all the different products item data
-*/
-function getItemData(id){
-	if (id == 39){
-		return {
-			"id": 39,
-			"name": "Cloudy Lemonade",
-			"price": 190
-		};
-	} else if(id == 37){
-		return {
-			"id": 37,
-			"name": "Coke",
-			"price": 220
-		};
-	} else if(id == 35){
-		return {
-			"id": 35,
-			"name": "Cola",
-			"price": 220
-		};
-	} else if(id == 38){
-		return {
-			"id": 38,
-			"name": "Lemonade",
-			"price": 170
-		};
-	} else if(id == 40){
-		return {
-			"id": 40,
-			"name": "Orangeade",
-			"price": 170
-		};
-	} else if(id == 39){
-		return {
-			"id": 36,
-			"name": "Pepsi",
-			"price": 200
-		};
-	}
-}
+var teaRounderData = products; //gets it from products.json  - this approach requires products.json to not be fully valid JSON as it needs the products = opening line   - Todo: to make this work with fully valid JSON see comments on this link: http://www.askyb.com/javascript/load-json-file-locally-by-js-without-jquery/  - uses XMLHttpRequest() to get the file
 
 /* In TR's dropdown based layout, we have all the product names to hand, but not id's
 in fact item id wasn't a concept until we started using CoCart. Caring about individual prices happened during using CoCart, since the backend had all these different prices
-TODO: replace this quick hack
+TODO: make sure the file we're using is updated at startup
 */
 function getItemDataByName(name){
-	if (name == "Coffee"){
-		return {
-			"id": 24,
-			"name": "Coffee",
-			"escapedName": "Coffee",
-			"price": 300
-		};
-	} else if (name == "Decaf Coffee" || name == "Decaf%20Coffee"){ 
-		return {
-			"id": 26,
-			"name": "Decaf Coffee",
-			"escapedName": "Decaf%20Coffee",
-			"price": 270
-		};
-	} else if (name == "Decaf Tea" || name == "Decaf%20Tea"){ 
-		return {
-			"id": 25,
-			"name": "Decaf Tea",
-			"escapedName": "Decaf%20Tea",
-			"price": 270
-		};
-	} else if (name == "Horlicks"){ 
-		return {
-			"id": 29,
-			"name": "Horlicks",
-			"escapedName": "Horlicks",
-			"price": 250
-		};
-	} else if (name == "Hot Chocolate" || name == "Hot%20Chocolate"){ 
-		return {
-			"id": 27,
-			"name": "Hot Chocolate",
-			"escapedName": "Hot%20Chocolate",
-			"price": 250
-		};
-	} else if (name == "Ovaltine"){ 
-		return {
-			"id": 28,
-			"name": "Ovaltine",
-			"escapedName": "Ovaltine",
-			"price": 250
-		};
-	} else if (name == "Tea"){ 
-		return {
-			"id": 23,
-			"name": "Tea",
-			"escapedName": "Tea",
-			"price": 270
-		};
-	} else if (name == "Apple Juice" || name == "Apple%20Juice"){
-		return {
-			"id": 31,
-			"name": "Apple Juice",
-			"escapedName": "Apple%20Juice",
-			"price": 250
-		};
-	} else if (name == "Cloudy Apple Juice" || name == "Cloudy%20Apple%20Juice"){ 
-		return {
-			"id": 32,
-			"name": "Cloudy Apple Juice",
-			"escapedName": "Cloudy%20Apple%20Juice",
-			"price": 250
-		};
-	} else if (name == "Orange Juice" || name == "Orange%20Juice"){ 
-		return {
-			"id": 30,
-			"name": "Orange Juice",
-			"escapedName": "Orange%20Juice",
-			"price": 250
-		};
-	} else if (name == "Pineapple Juice" || name == "Pineapple%20Juice"){ 
-		return {
-			"id": 33,
-			"name": "Pineapple Juice",
-			"escapedName": "Pineapple%20Juice",
-			"price": 250
-		};
-	} else if (name == "Tropical Juice" || name == "Tropical%20Juice"){ 
-		return {
-			"id": 34,
-			"name": "Tropical Juice",
-			"escapedName": "Tropical%20Juice",
-			"price": 250
-		};
-	} else if (name == "Cloudy Lemonade" || name == "Cloudy%20Lemonade"){
-		return {
-			"id": 39,
-			"name": "Cloudy Lemonade",
-			"escapedName": "Cloudy%20Lemonade",
-			"price": 190
-		};
-	} else if(name == "Coke"){
-		return {
-			"id": 37,
-			"name": "Coke",
-			"escapedName": "Coke",
-			"price": 220
-		};
-	} else if(name == "Cola"){
-		return {
-			"id": 35,
-			"name": "Cola",
-			"escapedName": "Cola",
-			"price": 220
-		};
-	} else if(name == "Lemonade"){
-		return {
-			"id": 38,
-			"name": "Lemonade",
-			"escapedName": "Lemonade",
-			"price": 170
-		};
-	} else if(name == "Orangeade"){
-		return {
-			"id": 40,
-			"name": "Orangeade",
-			"escapedName": "Orangeade",
-			"price": 170
-		};
-	} else if(name == "Pepsi"){
-		return {
-			"id": 36,
-			"name": "Pepsi",
-			"escapedName": "Pepsi",
-			"price": 200
-		};
-	} else if (name == "White wine - 125ml" || name == "White Wine 125ml" || name == "White%20Wine%20125ml"){
-		return {
-			"id": 77 ,
-			"name": "White Wine 125ml",
-			"escapedName": "White%20Wine%20125ml",
-			"price": 425
-		};
-	} else if (name == "White wine - 175ml" || name == "White Wine 175ml" || name == "White%20Wine%20175ml"){ 
-		return {
-			"id": 78,
-			"name": "White Wine 175ml",
-			"escapedName": "White%20Wine%20175ml",
-			"price": 550
-		};
-	} else if (name == "White wine - 250ml" || name == "White Wine 250ml" || name == "White%20Wine%20250ml"){ 
-		return {
-			"id": 79,
-			"name": "White Wine 250ml",
-			"escapedName": "White%20Wine%20250ml",
-			"price": 700
-		};
-	}  else {
+	console.log("getItemDataByName: " + name);
+	if (name.includes(" ")){
+		console.log("spaces need escaping");
+		name = escape(name);
+	}
+	if (name.includes("-")){
+		console.log("dashes with space after need removing");
+		name = name.replace(/-%20/g,""); //first param is a regular expression to find all dashes with escaped spaces after
+	}
+	name = name.toLowerCase(); //makes everything case insensitive - but relies on the file having everything all in lowercase too or it won't find things
+	console.log("name after formatting for looking up: " + name);
+	console.log(productDetail[name]);
+	
+	if (typeof productDetail[name] == 'undefined'){
 		console.log("product not found");
 		console.log(JSON.parse(JSON.stringify(name))); //stringifying and parsing to make sure the log doesn't change as name changes value, as per mdn recommendation: https://developer.mozilla.org/en-US/docs/Web/API/console/log
 		return {
@@ -239,6 +35,9 @@ function getItemDataByName(name){
 			"escapedName": "Error%20Product%20not%20found",
 			"price": 0
 		};
+		
+	} else {
+		return productDetail[name];
 	}
 }
 
@@ -924,29 +723,6 @@ function showOrderItems(orderId){
 	
 	//orderNum.toString() + "detailsTbody"
 	document.getElementById(orderId.toString() + "detailsTbody").classList = "default";
-	/*
-	document.getElementById("reAddToList").onclick = function() {
-		//comment for quick ctrl f purposes: function reAddToList
-		console.log(orderId);
-		let trPastOrders = JSON.parse(loadFromLocalStorage("trPastOrders"));
-		console.log(trPastOrders[orderId - 1]);
-		coCartCheckCart();
-		for(let i = 0; i < trPastOrders[orderId - 1].orderList.length; i++){
-			console.log(trPastOrders[orderId - 1].orderList[i]);
-			for(let j = 0; j < trPastOrders[orderId - 1].orderList[i][1]; j++){
-				setTimeout(
-					function() 
-					{
-						itemData = getItemDataByName(trPastOrders[orderId - 1].orderList[i][0]);
-						console.log("itemData.id: " + itemData.id);
-						coCartAddItem(itemData.id.toString());
-						console.log("***************" + itemData.name + "***************");
-					}, (i * j * 100)
-				);
-			}
-		}
-		console.log("**************FINISHED CALLS TO COCARTADDITEM***************");
-	}*/
 }
 
 function addOrderToGrids(orderNum, roundList, orderTotal){

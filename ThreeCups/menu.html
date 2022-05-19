@@ -9,7 +9,9 @@
 		<!-- "Favicon", fav icon, favourites icon. The little icon that in some old school browsers would just go into the favourites bar, but in modern browsers also goes into the tab and in history entries-->
 		<link rel="icon" href="../Icons/icon.png" type="image/x-icon"></link>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery library, needed for easily connecting to CoCart -->
-		<script src="mainJS.js"></script>
+		<script type="text/javascript" src="products.json"></script><!--The product names within their categories, for filling tabSelects and categoriesContainer-->
+		<script type="text/javascript" src="../productDetail.json"></script><!--wordpress Ids, prices, names and escapedNames listed by escaped, non-dashed name-->
+		<script src="../ordering.js"></script>
     </head>
     <body onload="startUp()">
 		<div class="header">

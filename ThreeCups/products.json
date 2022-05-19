@@ -1,0 +1,28 @@
+products ={
+	"Categories": {
+		"Teas": { 
+			"listingTemplate": "Default", 
+			"mainSelects": [ 
+				["Bucks Blend tea - Full fat milk", "Bucks Blend tea - Semi-skimmed milk", "Bucks Blend tea - Skimmed milk", "Bucks Blend tea - No milk", "Bucks Blend tea - Oat milk", "Green Tea", "Peppermint tea", "Earl Grey tea - Full fat milk", "Earl Grey tea - Skimmed milk", "Earl Grey tea - Semi-skimmed milk", "Earl Grey tea - No milk", "Earl Grey tea - Oat milk"]
+			]
+		},
+		"Other Hot Drinks": { 
+			"listingTemplate": "Default", 
+			"mainSelects": [ 
+				["Coffee", "Decaf Coffee", "Horlicks", "Hot Chocolate", "Ovaltine"]
+			]
+		},
+		"Juices": { 
+			"listingTemplate": "Default",
+			"mainSelects": [ 
+				["Apple Juice", "Cloudy Apple Juice", "Orange Juice", "Pineapple Juice", "Tropical Juice"]
+			]
+		},
+		"Fizzy Drinks": { 
+			"listingTemplate": "Default",
+			"mainSelects": [ 
+				["Cloudy Lemonade", "Coke", "Cola", "Lemonade", "Orangeade", "Pepsi"]
+			]
+		}
+	}
+}

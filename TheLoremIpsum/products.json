@@ -1,0 +1,28 @@
+products ={
+	"Categories": {
+		"Hot Drinks": { 
+			"listingTemplate": "Default", 
+			"mainSelects": [ 
+				["Coffee", "Decaf Coffee", "Decaf Tea", "Horlicks", "Hot Chocolate", "Ovaltine", "Tea"]
+			]
+		},
+		"Juices": { 
+			"listingTemplate": "Default",
+			"mainSelects": [ 
+				["Apple Juice", "Cloudy Apple Juice", "Orange Juice", "Pineapple Juice", "Tropical Juice"]
+			]
+		},
+		"Fizzy Drinks": { 
+			"listingTemplate": "Default",
+			"mainSelects": [ 
+				["Cloudy Lemonade", "Coke", "Cola", "Lemonade", "Orangeade", "Pepsi"]
+			]
+		},	
+		"Wines": { 
+			"listingTemplate": "Default", 
+			"mainSelects": [ 
+				["White Wine 125ml", "White Wine 175ml", "White Wine 250ml"]
+			]
+		}
+	}
+}

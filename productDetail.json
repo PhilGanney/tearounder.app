@@ -1,0 +1,200 @@
+productDetail= {
+	"coffee": {
+		"id": 24,
+		"name": "Coffee",
+		"escapedName": "Coffee",
+		"price": 300
+	},
+	"decaf%20coffee": {
+		"id": 26,
+		"name": "Decaf Coffee",
+		"escapedName": "Decaf%20Coffee",
+		"price": 270
+	},
+	"decaf%20tea": {
+		"id": 25,
+		"name": "Decaf Tea",
+		"escapedName": "Decaf%20Tea",
+		"price": 270
+	},
+	"horlicks": {
+		"id": 29,
+		"name": "Horlicks",
+		"escapedName": "Horlicks",
+		"price": 250
+	},
+	"hot%20chocolate": {
+		"id": 27,
+		"name": "Hot Chocolate",
+		"escapedName": "Hot%20Chocolate",
+		"price": 250
+	},
+	"ovaltine": {
+		"id": 28,
+		"name": "Ovaltine",
+		"escapedName": "Ovaltine",
+		"price": 250
+	},
+	"tea": {
+		"id": 23,
+		"name": "Tea",
+		"escapedName": "Tea",
+		"price": 270
+	},
+	"apple%20juice": {
+		"id": 31,
+		"name": "Apple Juice",
+		"escapedName": "Apple%20Juice",
+		"price": 250
+	},
+	"cloudy%20apple%20juice": {
+		"id": 32,
+		"name": "Cloudy Apple Juice",
+		"escapedName": "Cloudy%20Apple%20Juice",
+		"price": 250
+	},
+	"orange%20juice": {
+		"id": 30,
+		"name": "Orange Juice",
+		"escapedName": "Orange%20Juice",
+		"price": 250
+	},
+	"pineapple%20juice": {
+		"id": 33,
+		"name": "Pineapple Juice",
+		"escapedName": "Pineapple%20Juice",
+		"price": 250
+	},
+	"tropical%20juice": {
+		"id": 34,
+		"name": "Tropical Juice",
+		"escapedName": "Tropical%20Juice",
+		"price": 250
+	},
+	"cloudy%20lemonade": {
+		"id": 39,
+		"name": "Cloudy Lemonade",
+		"escapedName": "Cloudy%20Lemonade",
+		"price": 190
+	},
+	"coke": {
+		"id": 37,
+		"name": "Coke",
+		"escapedName": "Coke",
+		"price": 220
+	},
+	"cola": {
+		"id": 35,
+		"name": "Cola",
+		"escapedName": "Cola",
+		"price": 220
+	},
+	"lemonade": {
+		"id": 38,
+		"name": "Lemonade",
+		"escapedName": "Lemonade",
+		"price": 170
+	},
+	"orangeade": {
+		"id": 40,
+		"name": "Orangeade",
+		"escapedName": "Orangeade",
+		"price": 170
+	},
+	"pepsi": {
+		"id": 36,
+		"name": "Pepsi",
+		"escapedName": "Pepsi",
+		"price": 200
+	},
+	"white%20wine%20125ml": {
+		"id": 77 ,
+		"name": "White Wine 125ml",
+		"escapedName": "White%20Wine%20125ml",
+		"price": 425
+	},
+	"white%20wine%20175ml": {
+		"id": 78,
+		"name": "White Wine 175ml",
+		"escapedName": "White%20Wine%20175ml",
+		"price": 550
+	},
+	"white%20wine%20250ml": {
+		"id": 79,
+		"name": "White Wine 250ml",
+		"escapedName": "White%20Wine%20250ml",
+		"price": 700
+	}, 
+	"bucks%20blend%20tea%20full%20fat%20milk": {
+		"id": 265,
+		"name": "Bucks Blend Tea - Full fat milk",
+		"escapedName": "Bucks%20Blend%20Tea%20-%20Full%20fat%20milk",
+		"price": 300
+	}, 
+	"bucks%20blend%20tea%20semi-skimmed%20milk": {
+		"id": 266,
+		"name": "Bucks Blend Tea - Semi-skimmed milk",
+		"escapedName": "Bucks%20Blend%20Tea%20-%20Semi-skimmed%20milk",
+		"price": 300
+	},
+	"bucks%20blend%20tea%20skimmed%20milk":{
+		"id": 267,
+		"name": "Bucks Blend Tea - Skimmed milk",
+		"escapedName": "Bucks%20Blend%20Tea%20-%20Skimmed%20milk",
+		"price": 300
+	},
+	"bucks%20blend%20tea%20no%20milk":{	
+		"id": 268,
+		"name": "Bucks Blend tea - No milk",
+		"escapedName": "Bucks%20Blend%20Tea%20-%20No%20milk",
+		"price": 300
+	},
+	"bucks%20blend%20tea%20oat%20milk": {
+		"id": 270,
+		"name": "Bucks Blend tea - Oat milk",
+		"escapedName": "Bucks%20Blend%20Tea%20-%20Oat%20milk",
+		"price": 300
+	},
+	"green%20tea": {
+		"id": 252,
+		"name": "Green Tea",
+		"escapedName": "Green%20Tea",
+		"price": 300
+	},
+	"earl%20grey%20tea%20full%20fat%20milk":{
+		"id": 256,
+		"name": "Earl Grey tea - Full fat milk",
+		"escapedName": "Earl%20Grey%20tea%20-%20Full%20fat%20milk",
+		"price": 300
+	},
+	"earl%20grey%20tea%20skimmed%20milk": {
+		"id": 258,
+		"name": "Earl Grey tea - Skimmed",
+		"escapedName": "Earl%20Grey%20tea%20-%20Skimmed%20milk",
+		"price": 300
+	},
+	"earl%20grey%20tea%20semi-skimmed%20milk": {
+		"id": 257,
+		"name": "Earl Grey tea - Semi-skimmed",
+		"escapedName": "Earl%20Grey%20tea%20-%20Semi-skimmed%20milk",
+		"price": 300
+	},
+	"earl%20grey%20tea%20no%20milk":{
+		"id": 259,
+		"name": "Earl Grey tea - No Milk",
+		"escapedName": "Earl%20Grey%20tea%20-%20No%20milk",
+		"price": 300
+	},
+	"earl%20grey%20tea%20oat%20milk": {
+		"id": 260,
+		"name": "Earl Grey tea - Oat Milk",
+		"escapedName": "Earl%20Grey%20tea%20-%20Oat%20milk",
+		"price": 300
+	},
+	"peppermint%20tea": {
+		"id": 261,
+		"name": "Peppermint tea",
+		"escapedName": "Peppermint%20tea",
+		"price": 300
+	}
+}
