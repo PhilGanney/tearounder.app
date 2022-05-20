@@ -44,6 +44,7 @@ function getItemDataByName(name){
 function startUp(){
     console.groupCollapsed("startUp()");
 	console.log("startup started");
+	pullOldOrdersAcross();
 	/*coCartCheckCart() makes sure that there is a cart_key
 	Todo: actually make the order grid match up with CoCart from wihtin that call
 	*/
@@ -1092,4 +1093,55 @@ function updateName(e){
 	}
 	saveToLocalStorage("trCurrentOrderList", JSON.stringify(trCurrentOrderList));
 	console.groupEnd();
+}
+
+function pullOldOrdersAcross(){
+/*For a little while, the ThreeCups demo used a seperate localStorageKey for past orders.
+	ThreeCups used threeCupsPastOrders
+	TheLoremIpsum used trPastOrders
+	As of the evening of 19/05/2022 they both use trPastOrders
+	Initially I just dropped threeCupsPastOrders, thinking that would be fine since we don't have real users yet, however:
+		the few people who have used the demo, or may have used the demo, may well decide to have a play with it again
+		if they do, we don't want all their past orders to be inexplicably not there.
+		Those people are people we're trying to impress enough to put in a good word for us with contacts.
+		(With the exception of the two of us on the team, but even then it would be good for us when demoing, for previous orders to be there)
+  So we need to 1)check for the existence of threeCupsPastOrders, 2) pull any records across to trPastOrders with the venue of "ThreeCups", and then 3) remove threeCupsPastOrders
+	Though also need to handle some situations:
+		1a) it's not found: exit the function, otherwise attempts to parse will crash JS
+		1b) exists but is empty: remove it and exit function, 
+*/	
+	//1) check for the existence of threeCupsPastOrders
+	let threeCupsPastOrders = loadFromLocalStorage("threeCupsPastOrders");
+	console.log("threeCupsPastOrders: " + threeCupsPastOrders);
+	//1a) threeCupsPastOrders not found: exit the function,
+	if (threeCupsPastOrders == null){
+		console.log("No need to pull threeCupsPastOrders over (it wasn't found)");
+		return;
+	}
+	//1b) threeCupsPastOrders exists but is empty (just remove it)
+	if (threeCupsPastOrders == "" || threeCupsPastOrders == "[]"){
+		console.log("threeCupsPastOrders found but empty");
+		localStorage.removeItem("threeCupsPastOrders");
+		return;
+	}
+	console.log("Attempting to pull records over from threeCupsPastOrders");
+	let threeCupsPastOrdersParsed = JSON.parse(threeCupsPastOrders);
+	//2) pull any records across to trPastOrders with the venue of "ThreeCups"
+	let orderData = {
+		"venue": "ThreeCups",
+		"trOrderNumber": getHighestTrOrderNum(),
+		"orderList": [],
+		"orderTotal": 0
+	};
+	
+	for(let i = 0; i < threeCupsPastOrdersParsed.length; i++){
+		orderData.trOrderNumber = orderData.trOrderNumber + 1; //Can't use their old orderNumber as that will likely clash, don't get the highest trOrderNumber each time in loop as that would be poorer performance
+		orderData.orderList = threeCupsPastOrdersParsed[i].orderList;
+		orderData.orderTotal = threeCupsPastOrdersParsed[i].orderTotal;
+
+		console.log(orderData);
+		appendToLocalStorageArray("trPastOrders", orderData);
+	}
+	//3) remove threeCupsPastOrders
+	localStorage.removeItem("threeCupsPastOrders");
 }
