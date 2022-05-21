@@ -734,7 +734,6 @@ function addOrderToGrids(orderNum, orderDateTime, roundList, orderTotal){
 			<th class="OrderNum">Order #</th>   		Int converted to str
 			<th class="OrderItemButtonCells">Items</th> Button
 			<th class="OrderTotal">£ Total</th> 		£
-			<th class="OrderStatus">Status</th> 		"Status"	
 	*/
 	console.log(orderTotal);
 	console.log("roundList = (next line)");
@@ -755,8 +754,10 @@ function addOrderToGrids(orderNum, orderDateTime, roundList, orderTotal){
 	  newHTML += "<td>£";  						//table cell tag open	£ Total
 	  newHTML += orderTotal.toString();				//place the order total into cell inner
 	  newHTML += "</td>"; 						//table cell tag close
+/*  Not including this at the moment while we don't actually bring back a status
 	  newHTML += "<td>Status";  				//table cell tag open	Status
-	  newHTML += "</td>"; 						//table cell tag close	  
+	  newHTML += "</td>"; 						//table cell tag close	
+*/	  
 	  newHTML += "</tr>";					//row tag close
 
 	  //console.log("row contents made");
