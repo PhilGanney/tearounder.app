@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta name=”robots” content=”noindex”> <!-- TODO: When we want search engines to index the page remove this line-->
+        <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width, maximum-scale=3"> <!-- maximum-scale=1-->
+        <title>TeaRounder</title>
+		<!-- TODO: Currently using a stylesheet from within the demo area - that's a bit weird!-->
+		<link rel="stylesheet" href="TheLoremIpsum/mainStyles.css"> </link>
+		<!-- Favicon! -->
+		<link rel="icon" href="Icons/icon.png" type="image/x-icon"></link>
+		
+    </head>
+    <body>
+       <!-- <script type="text/javascript" src="cordova.js"></script>-->
+	   	<!-- Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+			<span class="close">&times;</span>
+			<!-- Change src in javascript to match the relevant screen file -->
+			<iframe id="myModalIFrame" src=""></iframe>
+		  </div>
+		</div>
+		<div class="header">
+			<!-- div for positioning the menu-->
+			<div id="menuTopLayer">
+				<!--<img id="mainMenuIcon" src="Icons/BurgerMenuGreenRounded.png" alt="Icon" width="32" height="32"/>-->
+			</div>
+			<h1>TeaRounder</h1>
+			<p>Making food and drink ordering easier</p>
+			
+			<!--<img id="teaRounderIcon" src="Icons/icon.png" alt="Icon" width="32" height="32"> in a later update, this can be shown, but neeeds css to place it on the left, and also to have some usage-->
+			<!--<button id="infoButton" class="">Info / help</button> -->
+		</div>
+		
+		<!-- Main Area -->
+		<div id="mainContent">
+			<div id="" class="homepageSection odd">
+				<span>
+				Choose a (demo) venue:
+				</span>
+				<br/>
+				
+				<button class="pubButton" onclick="location.href='TheLoremIpsum/menu.html'">
+					<h3>The Lorem Ipsum</h3>
+					<p><i>Country Pub</i></p>
+					<p>Example Street, Exampleton</p>
+				</button>
+				<button class="pubButton" onclick="location.href='ThreeCups/menu.html'">
+					<h3>Three Cups Cafe</h3>
+					<p><i>Cafe</i></p>
+					<p>Example Road, Textington</p>
+				</button>
+				<div id="venues" class="hidden container xScroll" style="height: 170px;">
+				</div>
+			</div>			
+			<div class="homepageSection even">
+				<button type="button" class="homepageButton" onclick="location.href='anywhere/start.html'">
+				<h2>Anywhere else?</h2>
+				<p>You can always use our "anywhere" page to make a convenient list.</p>
+				<p>Perfect for taking drink orders at home, in the office, or as a backup option for places with no ordering system.</p>
+				</button>
+			</div>
+			<div id="" class="homepageSection odd" >
+				<h2 >What's new:</h2>
+				<div class="container yScroll" style="height: 160px;">
+					<h2>So far May 2022</h2>
+					<h3>New feature: Adding names</h3>
+					<p>To help people remember who ordered what, we've added the option to store names on orders.</p>
+					<p>This is in the venue demos currently and will be added to the anywhere page soon</p>
+					<h3>Improvement:</h3>
+					<p>We now show order dates in the past orders grid</p>
+					<h3>"Three Cups Cafe" cafe demo</h3>
+					<p>This helps to show an alternative menu that a cafe might have</p>
+					<h2>April 2022</h2>
+					<h3>TeaRounder Pub Demo available</h3>
+					<p>We started showing people in the industry our pub demo: The Lorem Ipsum.</p>
+				</div>
+			</div>
+			<div id="cookiePopupContainer"></div>
+
+			
+		</div>
+	</body>
+		<footer>
+			<div id="lastUpdated">Last updated 22nd May 2022.<br/>TeaRounder &copy; Philip Ganney 2021 - 2022  <!--TeaRounder blog at <a href="https://philipganney.wordpress.com">philipganney.wordpress.com</a>--> 
+			</div>
+			<span id="toVenueSignUp"><a href="mailto:service@tearounder.thinkablecloud.co.uk">Venue sign up</a></span> | <span id="toAdminLogIn"><a href="https://tearounder.thinkablecloud.co.uk/wp-login.php">Admin log in</a></span> | <span><a href="privacyPolicy.html">Privacy Policy</a></span>
+		</footer>
+</html>
