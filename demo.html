@@ -13,6 +13,15 @@
     </head>
     <body>
        <!-- <script type="text/javascript" src="cordova.js"></script>-->
+		<!--App menu-->
+		<div id="appMenu" class="hidden">
+			<ul>
+				<li><a href="demo.html">Refresh page</a></li>
+				<li><a href="https://tearounder.thinkablecloud.co.uk/">Add your venue</a></li>
+				<li><a href="https://tearounder.thinkablecloud.co.uk/wp-login.php">Admin Login</a></li>
+				<li><a href="https://tearounder.thinkablecloud.co.uk/privacy-policy/">Privacy Policy</a></li>
+			</ul>
+		</div>
 	   	<!-- Modal -->
 		<div id="myModal" class="modal">
 
@@ -24,10 +33,7 @@
 		  </div>
 		</div>
 		<div class="header">
-			<!-- div for positioning the menu-->
-			<div id="menuTopLayer">
-				<!--<img id="mainMenuIcon" src="Icons/BurgerMenuGreenRounded.png" alt="Icon" width="32" height="32"/>-->
-			</div>
+			<input type="image" id="mainMenuIcon" src="../Icons/BurgerMenuBlueLines.png" alt="menu icon" onclick="appMenuToggle()"> </input>
 			<h1>TeaRounder</h1>
 			<p>Making food and drink ordering easier</p>
 			
