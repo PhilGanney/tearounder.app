@@ -1,0 +1,23 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^tearounder\.app$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tearounder\.app$
+RewriteRule ^cafedemo\/?$ "https\:\/\/tearounder\.app\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^tearounder\.app$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tearounder\.app$
+RewriteRule ^cafedemo\/menu\.html$ "https\:\/\/tearounder\.app\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^tearounder\.app$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tearounder\.app$
+RewriteRule ^anywhere\/?$ "https\:\/\/tearounder\.app\/anywhere\/start\.html" [R=301,L]
+RewriteCond %{HTTP_HOST} ^tearounder\.app$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tearounder\.app$
+RewriteRule ^TheLoremIpsum\/?$ "https\:\/\/tearounder\.app\/TheLoremIpsum\/menu\.html" [R=301,L]
+RewriteCond %{HTTP_HOST} ^tearounder\.app$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tearounder\.app$
+RewriteRule ^ThreeCups\/?$ "https\:\/\/tearounder\.app\/ThreeCups\/menu\.html" [R=301,L]
+
+ErrorDocument 404 /404.php
+
+<FilesMatch "\.(js|css)$">
+Header set Cache-Control "max-age=43200, public, must-revalidate"
+</FilesMatch>
