@@ -101,6 +101,15 @@ function openIframe(src){
 	modalIFrame.style.display = "block";
 }
 
+function appMenuToggle(){
+	console.log(document.getElementById("appMenu").classList.contains("hidden"));
+	if(document.getElementById("appMenu").classList.contains("hidden")){
+		//show #appMenu
+		showViaClass("appMenu");
+	} else {
+		hideViaClass("appMenu");
+	}
+}
 
 //I keep thinking there must be a simpler way to do this, but haven't found anything
 function getCategories(){

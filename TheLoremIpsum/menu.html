@@ -20,10 +20,20 @@
 	</head>
     <body onload="startUp()">
 		<div class="header">
+			<input type="image" id="mainMenuIcon" src="../Icons/BurgerMenuBlueLines.png" alt="menu icon" onclick="appMenuToggle()"> </input>
 			<h1>TeaRounder</h1>
 			<p>Food & drink ordering on any device</P>
 			<!--<img id="teaRounderIcon" src="Icons/icon.png" alt="Icon" width="32" height="32"> in a later update, this can be shown, but neeeds css to place it on the left, and also to have some usage-->
 			<button id="infoButton" class="">Info / help</button>
+		</div>
+		<!--App menu-->
+		<div id="appMenu" class="hidden">
+			<ul>
+				<li><a href="../demo.html">App Home</a></li>
+				<li><a href="https://tearounder.thinkablecloud.co.uk/">Add your venue</a></li>
+				<li><a href="https://tearounder.thinkablecloud.co.uk/wp-login.php">Admin Login</a></li>
+				<li><a href="https://tearounder.thinkablecloud.co.uk/privacy-policy/">Privacy Policy</a></li>
+			</ul>
 		</div>
 		<!-- Modal -->
 		<div id="myModal" class="modal">
