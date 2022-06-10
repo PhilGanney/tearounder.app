@@ -29,6 +29,7 @@ function addRow(cheese){
 function pullMenuFromWooCom(){
 	console.log("pullMenuFromWooCom");
 	//window.open("https://tearounder.app/importMenuFromWoo.php", "_blank")
+	/*let str = "Mango";
 	var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) { //todo: explain this non-obvious if statement        document.getElementById("txtHint").innerHTML = this.responseText;
@@ -37,20 +38,19 @@ function pullMenuFromWooCom(){
     };
 	//open(method, url, async)
     xmlhttp.open("POST", "https://tearounder.app/importMenuFromWoo.php", true);
-    xmlhttp.send("q=Potatoe");
+    xmlhttp.send();*/
 	
-	/*
 	$.ajax({
 	  url: "https://tearounder.app/importMenuFromWoo.php",
 	  method: "POST",
-	  data: JSON.stringify({
+	  data: {
 		"q" : "Pineapple"
-	  }),
-	  dataType: "json",
-	  contentType: "application/json; charset=utf-8",
+	  },
+	  /*dataType: "json",
+	  contentType: "application/json; charset=utf-8",*/
 	  complete: function (response) {
 		console.log(response);
 		document.getElementById("pullMenuFromWooComResponseArea").innerHTML = response.responseText;
 	  }
-	});*/
+	});
 }
