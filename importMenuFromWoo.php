@@ -1,6 +1,6 @@
 <?php
 $q = sanitize_input($_REQUEST["q"]);
-echo "PHP script triggered, q = " + $q;
+echo "PHP script triggered, q = " . $q;
 
 function sanitize_input($data) {
   $data = trim($data);
