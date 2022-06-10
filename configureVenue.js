@@ -29,13 +29,28 @@ function addRow(cheese){
 function pullMenuFromWooCom(){
 	console.log("pullMenuFromWooCom");
 	//window.open("https://tearounder.app/importMenuFromWoo.php", "_blank")
-	let str = "Mango";
+	/*let str = "Mango";
 	var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) { //todo: explain this non-obvious if statement        document.getElementById("txtHint").innerHTML = this.responseText;
 		document.getElementById("pullMenuFromWooComResponseArea").innerHTML = this.responseText;
 	  }
     };
-    xmlhttp.open("GET", "https://tearounder.app/importMenuFromWoo.php?q=" + str, true);
-    xmlhttp.send();
+	//open(method, url, async)
+    xmlhttp.open("POST", "https://tearounder.app/importMenuFromWoo.php", true);
+    xmlhttp.send();*/
+	
+	$.ajax({
+	  url: "https://tearounder.app/importMenuFromWoo.php",
+	  method: "POST",
+	  data: JSON.stringify({
+		"q" : "Pineapple"
+	  }),
+	  dataType: "json",
+	  contentType: "application/json; charset=utf-8",
+	  complete: function (response) {
+		console.log(response);
+		document.getElementById("pullMenuFromWooComResponseArea").innerHTML = this.responseText;
+	  }
+	});
 }
