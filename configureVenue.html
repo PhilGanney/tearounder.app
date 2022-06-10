@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- this next tag appears in search engine results as the pages title, is shown in the browser tab on most browsers (or as the title bar in browsers without tabs) and is usually what browsers list the page as in history and bookmarks. Generally you always want to have a title tag. For games it makes sense to match up with the game name, or maybe sometimes have it say the level or area name. Can't type that tag name even in a comment, as if a link to this page is shared on whattsapp it will take the rest of this comment as the sharing description!! -->
+		<title>Configure your venue, TeaRounder</title>
+		<meta name="description" content="A description of the page here"></meta>
+		<!-- Favourites Icon - also the tab icon -->
+		<link rel="icon" href="Icons/icon.png" type="image/x-icon"></link>
+		<!--JavaScript files-->
+		<script src="configureVenue.js"></script>
+		<script src="hideShowSelect.js"></script><!-- For the tablinks and hide/show functions -->
+		<link rel="stylesheet" href="mainStyles.css"> </link>
+		<link rel="stylesheet" href="configureVenue.css"> </link>
+	</head>
+	<body onload="configPageLoad()">
+		<form action="https://tearounder.app/configureVenue.php" method="post">
+			<!--function hardcodedHTMLDivTabs(tabDivClass, tabButtonClass, showDivId, selectedButtonId) -->
+			<div id="basicBtn" class="divAsBtn sectionTab Selected" onclick="hardcodedHTMLDivTabs('setupSection', 'sectionTab','basicInfo', 'basicBtn')">
+			Basic Info
+			</div>
+			<div id="pageSetupBtn" class="divAsBtn sectionTab" onclick="hardcodedHTMLDivTabs('setupSection', 'sectionTab','pageSetup', 'pageSetupBtn')">
+			Page Setup
+			</div>
+			<div id="listingSetupBtn" class="divAsBtn sectionTab" onclick="hardcodedHTMLDivTabs('setupSection', 'sectionTab','listingSetup', 'listingSetupBtn')">
+			Listing Setup
+			</div>			
+			<div id="contactInfoBtn" class="divAsBtn sectionTab" onclick="hardcodedHTMLDivTabs('setupSection', 'sectionTab','contactInfo', 'contactInfoBtn')">
+			Contact Info
+			</div>
+			<div class="showing setupSection" id="basicInfo">
+				<label for="venueName">Venue Name:</label>
+				<input id="venueName" name="venueName" type="text"> </input><br/>
+				<label for="referred">How did you hear about TeaRounder?</label>
+				<input id="referred" name="referred" type="text"> </input><br/>
+				<label for="serviceWanted">Which package do you want now?</label>
+				<select id="serviceWanted">
+					<option value="Premium">Premium</option>
+					<option value="free">The Freebie</option>
+					<!--<option value="testSubject">Feature Test Subject</option>-->
+				</select></br>
+				<p>The Freebie Package gives you an ordering page, listing in our app and a page where all orders will show up - but customers pay outside of TeaRounder</p>
+				<p>Premium Package has everything in the Freebie package plus: WooCommerce checkout with support for payment, support via Zoom or Phone, and allows you to send your menu to our team to set up for you</p>
+				<!--<p>Feature Test Subject gives you the premium package at a discount, but we test out new features on you</p>-->
+			</div>
+			<div class="hidden setupSection" id="pageSetup">
+				<label for="pageTitle">Page Title:</label>
+				<input id="pageTitle" name="pageTitle" type="text"> </input><br/>
+				<label for="welcomeMessage">Welcome Message:</label>
+				<input id="welcomeMessage" name="welcomeMessage"type="text" value="Hello! Pick a section of our menu:"></input><br/>
+				<p>(The welcome message will be shown near the top of your page, above the categories. It should be short enough that people will read it, whilst humanising the ordering page a touch)</p>
+				<div id="menu_container">
+				</div>
+				
+				<!-- buttons within forms would cause issues-->
+				<div id="pullMenuFromWooCom" class="divAsBtn" onclick="pullMenuFromWooCom()">Pull Menu Across from WooCommerce</div>
+				<div id="pullMenuFromWooComResponseArea"></div>
+				<div id="addMenuSection" class="divAsBtn" onclick="addNewMenuSectionToConfig()">Add Menu Section</div>
+				<p>(Note: with our premium package, we can configure your menu for you, from a pdf or csv file that you send us.)</p>
+				<label for="venueShortName">Venue Short Name:</label>
+				<input id="venueShortName" name="venueShortName" type="text"> </input><br/>
+				<p>(Shown after the words "Your past rounds at", to just reinforce your venue name to your customers a little)</p>
+			</div>
+			<div class="hidden setupSection" id="listingSetup">
+				Info for your listing in the home page of the app. </br>
+				
+				<label for="listingName">Venue Name (as you want it listed):</label>
+				<input id="listingName" name="listingName" type="text"> </input><br/>
+				<label for="venueType">Venue type</label>
+				<select id="venueType" name="venueType" >
+					<option>Please choose</option>
+					<option>Cafe</option>
+					<option>Country Pub</option>
+					<option>Gastropub</option>
+					<option>Hotel</option>
+					<option>Inn</option>
+					<option>Restaurant</option>
+					<option>Other</option>
+				</select><br/>
+				<label for="streetName">Street Name / Attraction name:</label>
+				<input id="streetName" name="streetName" type="text"> </input><br/>
+				
+				<label for="townName">Village/Town/City name:</label>
+				<input id="townName" name="townName" type="text"> </input><br/>
+			</div>
+			<div class="hidden setupSection" id="contactInfo">
+				<label for="b2bEmail">Best email for us to contact you:</label>
+				<input id="b2bEmail" name="b2bEmail" type="text"> </input><br/>
+				<label for="emailPrefs">Can we email you about offers, new premium/additional features?</label>
+				<select id="emailPrefs">
+					<option value="1">Only once per year, thanks</option>
+					<option value="No">No thanks</option>
+					<option value="3">Two or three per year is fine</option>
+					<option value="All">Tell me about all offers and new features please!</option>
+				</select></br>
+				<label for="contactName">Contact Name:</label>
+				<input id="contactName" name="contactName" type="text"> </input><br/>
+			</div></br>
+			<button disabled="true">submit</button>
+		</form>
+		<template id="sectionTemplate">
+		  <div class="section">
+			<label for="sectionName">Menu Section Name:</label>
+			<textarea class="sectionName" maxlength="33"> </textarea><br/>
+			<table>
+				<thead>
+				  <tr>
+					<th class="DrinkName">Drink name</th>
+					<th class="CostEach">£ Each</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<td><input type="text"> </input></td>
+					<td class="CostEach"><input type="text" class="CostEach"> </input></td>
+				  </tr>
+				</tbody>
+			</table><br/>
+			<!-- buttons within forms would cause issues-->
+			<div onclick="addRow(this)" class="divAsBtn">+ Row</div></br>
+		  </div>
+		</template>
+		<template id="tableRowTemplate">
+			<tr>
+				<td><input type="text"> </input></td>
+				<td class="CostEach"><input type="text" class="CostEach"> </input></td>
+			</tr>
+		</template>
+	</body>
+</html>
