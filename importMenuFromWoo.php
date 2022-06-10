@@ -1,5 +1,5 @@
 <?php
-$q = sanitize_input($_POST["q"]);
+$q = sanitize_input($_POST["pageTitle"]);
 echo "PHP script triggered, q = " . $q;
 
 function sanitize_input($data) {
