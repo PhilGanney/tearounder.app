@@ -50,7 +50,7 @@ function pullMenuFromWooCom(){
 	  contentType: "application/json; charset=utf-8",
 	  complete: function (response) {
 		console.log(response);
-		document.getElementById("pullMenuFromWooComResponseArea").innerHTML = this.responseText;
+		document.getElementById("pullMenuFromWooComResponseArea").innerHTML = response.responseText;
 	  }
 	});
 }
