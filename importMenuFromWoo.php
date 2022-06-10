@@ -1,7 +1,8 @@
 <?php
-echo "PHP script triggered";
+$q = sanitize_input($_REQUEST["q"]);
+echo "PHP script triggered, q = " + $q;
 
-function test_input($data) {
+function sanitize_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
