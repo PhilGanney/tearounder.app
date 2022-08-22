@@ -43,3 +43,10 @@ body *{
     border-style: inset;
     background-color: #86af49;
 }
+.wooCategoryDivBtns.in {
+	background-color: #86af49;
+}
+
+.notInTR{
+	text-decoration: line-through;
+}

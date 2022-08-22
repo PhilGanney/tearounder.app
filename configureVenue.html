@@ -4,17 +4,20 @@
 		<meta charset="utf-8">
 		<!-- this next tag appears in search engine results as the pages title, is shown in the browser tab on most browsers (or as the title bar in browsers without tabs) and is usually what browsers list the page as in history and bookmarks. Generally you always want to have a title tag. For games it makes sense to match up with the game name, or maybe sometimes have it say the level or area name. Can't type that tag name even in a comment, as if a link to this page is shared on whattsapp it will take the rest of this comment as the sharing description!! -->
 		<title>Configure your venue, TeaRounder</title>
+		<meta name="robots" content="noindex" /> <!--Todo: remove this noindex when the page is ready for the public-->
 		<meta name="description" content="A description of the page here"></meta>
 		<!-- Favourites Icon - also the tab icon -->
 		<link rel="icon" href="Icons/icon.png" type="image/x-icon"></link>
 		<!--JavaScript files-->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery library, needed for easily doing ajax calls -->
 		<script src="configureVenue.js"></script>
+		<script src="ui.js?20220530"></script><!--QueryString helps make sure that this is up to date-->
 		<script src="hideShowSelect.js"></script><!-- For the tablinks and hide/show functions -->
 		<link rel="stylesheet" href="mainStyles.css"> </link>
 		<link rel="stylesheet" href="configureVenue.css"> </link>
 	</head>
 	<body onload="configPageLoad()">
+		<h1>WORK IN PROGRESS, THIS PAGE IS NOT USABLE BY THE PUBLIC YET<BR/> THINGS WILL PROBABLY NOT SAVE CORRECTLY IF YOU ATTEMPT TO USE IT RIGHT NOW<BR/>PACKAGES MAY CHANGE BEFORE BEING LIVE</H1>
 		<form action="https://tearounder.app/configureVenue.php" method="post">
 			<!--function hardcodedHTMLDivTabs(tabDivClass, tabButtonClass, showDivId, selectedButtonId) -->
 			<div id="basicBtn" class="divAsBtn sectionTab Selected" onclick="hardcodedHTMLDivTabs('setupSection', 'sectionTab','basicInfo', 'basicBtn')">
@@ -34,15 +37,32 @@
 				<input id="venueName" name="venueName" type="text"> </input><br/>
 				<label for="referred">How did you hear about TeaRounder?</label>
 				<input id="referred" name="referred" type="text"> </input><br/>
+				<label for="businessCard">Have you been given a business card?</label>
+				<select id="businessCard" name="businessCard" onchange="businessCardChange()">
+					<option value="no">No</option>
+					<option value="yes">Yes</option>
+				</select></br>
+				<label id="discountCodeLbl" class="hidden" for="discountCode">Discount code? (contact info side of business card, bottom left)</label>
+				<input class="hidden" id="discountCode" name="discountCode" type="text"> </input><br/>
 				<label for="serviceWanted">Which package do you want now?</label>
 				<select id="serviceWanted">
-					<option value="Premium">Premium</option>
-					<option value="free">The Freebie</option>
+					<option value="keepUpdated">Nothing yet - keep updated</option>
+					<option value="EmailSetup">Basic TeaRounder with setup by email</option>
+					<option value="Premium">Premium Package</option>
+					<option value="AdvancedSupport" disabled>Self-Service + Advanced Support (coming soon)</option>
+					<option value="free" disabled>Self-Service Freebie (coming soon)</option>
 					<!--<option value="testSubject">Feature Test Subject</option>-->
 				</select></br>
-				<p>The Freebie Package gives you an ordering page, listing in our app and a page where all orders will show up - but customers pay outside of TeaRounder</p>
+				<p>Choose "Nothing yet - keep updated" if you don't want to start using tearounder now, but would like email updates when we add new features or services</p>
+				<p>"Basic TeaRounder with setup by email" is our current cheapest way to get TeaRounder. After filling out this (During August/September 2022 allow 3-4 working days to go live from getting your menu).</p>
+
 				<p>Premium Package has everything in the Freebie package plus: WooCommerce checkout with support for payment, support via Zoom or Phone, and allows you to send your menu to our team to set up for you</p>
-				<!--<p>Feature Test Subject gives you the premium package at a discount, but we test out new features on you</p>-->
+				<h2>Coming soon:</h2>
+				<p>Self-service, should be available September 2022: A page for easily adding menu options is being worked on at the moment.</p>
+				<!--<p>Feature Test Subject gives you the premium package at a discount, but we test out new features on you</p>
+								<p>The Freebie Package gives you an ordering page, listing in our app and a page where all orders will show up - but customers pay outside of TeaRounder</p>
+				
+				-->
 			</div>
 			<div class="hidden setupSection" id="pageSetup">
 				<label for="pageTitle">Page Title:</label>
@@ -54,10 +74,33 @@
 				</div>
 				
 				<!-- buttons within forms would cause issues-->
-				<div id="pullMenuFromWooCom" class="divAsBtn" onclick="pullMenuFromWooCom()">Pull Menu Across from WooCommerce</div>
-				<div id="pullMenuFromWooComResponseArea"></div>
-				<div id="addMenuSection" class="divAsBtn" onclick="addNewMenuSectionToConfig()">Add Menu Section</div>
-				<p>(Note: with our premium package, we can configure your menu for you, from a pdf or csv file that you send us.)</p>
+				<div id="importMenuOptions">
+					<div id="" class="divAsBtn" onclick="menuFromWooStart()">Menu from WooCommerce</div>
+					<div id="manualMenu" class="divAsBtn" onclick="menuFromScratchStart()">Create menu from scratch</div>
+					<div id="sendUsMenu" class="divAsBtn" onclick="menuFromScratchStart()">Send us a menu and we'll set you up (included in premium)</div>
+					<h3>What's WooCommerce??</h3>
+					<p id="whatIsWooCom">WooCommerce is an eCommerce website platform built on top of WordPress. TeaRounder can get menu items from a WooCommerce website and even send customer orders to the WooCommerce checkout via a free plugin called CoCart. If you'd like a WooCommerce website as well as an ordering app, our partners <a href="http://www.thinkablecloud.co.uk/">Thinkable Cloud Ltd</a>, can create you one.</p>
+				</div>
+				<div id="WooComImport" class="hidden">
+					<h2>Menu from WooCommerce website:</h2>
+					<label id="theirEcomURLLbl"for="theirEcomURL">Your URL (web address):</label>
+					<input id="theirEcomURL" name="theirEcomURL" type="text" value=""></input><br/>
+					<div id="pullMenuFromWooCom" class="divAsBtn" onclick="menuFromGivenWoo()">Go</div>
+					<div id="pullMenuFromWooComResponseArea">
+					
+					</div>
+					<div id="pullMenuFromWooComResponseArea2">
+					
+					</div>
+				
+					<!--<div id="addAllCategories" class="divAsBtn hidden" onclick="addAllCategories()">Add All Categories</div><br/>-->
+					<div id="createTrMenu" class="divAsBtn hidden" onclick="createTrMenu()">(DEV button) Get products file</div><br/>
+					<div id="getDetailsFile" class="divAsBtn hidden" onclick="getDetailsFile()">(DEV button) Get details file</div><br/>
+					<div id="repullMenuFromWooCom" class="divAsBtn hidden" onclick="getWooCategories()">Refresh Categories</div><br/>
+				</div>
+				
+				<div id="addMenuSection" class="divAsBtn hidden" onclick="addNewMenuSectionToConfig()">Add Menu Section</div>
+				<p id="getPremiumForMenuFromWoo">(Note: with our premium package, we can configure your menu for you, from a pdf or csv file that you send us.)</p>
 				<label for="venueShortName">Venue Short Name:</label>
 				<input id="venueShortName" name="venueShortName" type="text"> </input><br/>
 				<p>(Shown after the words "Your past rounds at", to just reinforce your venue name to your customers a little)</p>
@@ -111,20 +154,47 @@
 				  </tr>
 				</thead>
 				<tbody>
-				  <tr>
-					<td><input type="text"> </input></td>
-					<td class="CostEach"><input type="text" class="CostEach"> </input></td>
-				  </tr>
+					<tr>
+						<td><input type="text" class="DrinkNameInput"> </input></td>
+						<td class="CostEach"><input type="text" class="CostEach CostEachInput"> </input></td>
+					</tr>
 				</tbody>
 			</table><br/>
 			<!-- buttons within forms would cause issues-->
-			<div onclick="addRow(this)" class="divAsBtn">+ Row</div></br>
+			<div onclick="addRowBtnClicked(this)" class="divAsBtn">+ Row</div></br>
+		  </div>
+		</template>
+		<template id="sectionTemplateWoo">
+		  <div class="section">
+			<label for="sectionNameWoo">WooCommerce Category:</label>
+			<span class="sectionNameWoo"></span><br/>
+			<label for="sectionName">TeaRounder Menu Section Name:</label>
+			<textarea class="sectionName" maxlength="33"> </textarea><br/>
+			<table>
+				<thead>
+				  <tr>
+					<th class="DrinkName">Drink name</th>
+					<th class="CostEach">£ Each</th>
+					<th class="Show">Show in TeaRounder?</th>
+				  </tr>
+				</thead>
+				<tbody>
+				
+				</tbody>
+			</table><br/>
 		  </div>
 		</template>
 		<template id="tableRowTemplate">
 			<tr>
-				<td><input type="text"> </input></td>
-				<td class="CostEach"><input type="text" class="CostEach"> </input></td>
+				<td><input type="text" class="DrinkNameInput"> </input></td>
+				<td class="CostEach"><input type="text" class="CostEach CostEachInput"> </input></td>
+			</tr>
+		</template>
+		<template id="tableRowTemplateWoo">
+			<tr>
+				<td class="DrinkName"></td>
+				<td class="CostEach"></td>
+				<td class="Show"><input type="checkbox" value="show"></td>
 			</tr>
 		</template>
 	</body>
