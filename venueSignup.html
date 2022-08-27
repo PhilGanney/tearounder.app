@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- this next tag appears in search engine results as the pages title, is shown in the browser tab on most browsers (or as the title bar in browsers without tabs) and is usually what browsers list the page as in history and bookmarks. Generally you always want to have a title tag. For games it makes sense to match up with the game name, or maybe sometimes have it say the level or area name. Can't type that tag name even in a comment, as if a link to this page is shared on whattsapp it will take the rest of this comment as the sharing description!! -->
+		<title>Venue Sign-up, TeaRounder</title>
+		<meta name="robots" content="noindex" /> <!--Todo: remove this noindex when the page is ready for the public-->
+		<meta name="description" content="A description of the page here"></meta>
+		<!-- Favourites Icon - also the tab icon -->
+		<link rel="icon" href="Icons/icon.png" type="image/x-icon"></link>
+		<!--JavaScript files-->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery library, needed for easily doing ajax calls -->
+		<script src="venueSignup.js"></script>
+		<script src="ui.js?20220530"></script><!--QueryString helps make sure that this is up to date-->
+		<script src="hideShowSelect.js"></script><!-- For the tablinks and hide/show functions -->
+		<link rel="stylesheet" href="mainStyles.css"> </link>
+		<link rel="stylesheet" href="configureVenue.css"> </link>
+	</head>
+	<body onload="venueSignUpPageLoad()">
+		<h1>WORK IN PROGRESS, THIS PAGE IS NOT USABLE BY THE PUBLIC YET<BR/> THINGS WILL PROBABLY NOT SAVE CORRECTLY IF YOU ATTEMPT TO USE IT RIGHT NOW<BR/>PACKAGES MAY CHANGE BEFORE BEING LIVE</H1>
+		<form action="https://tearounder.app/venueSignup.php" method="post" id="mainContent">
+			<div class="showing setupSection odd" id="basicInfo">
+				<label for="venueName">Venue Name:</label>
+				<input id="venueName" name="venueName" type="text"> </input><br/>
+				<label for="howHear">How did you hear about TeaRounder?</label>
+				<input id="howHear" name="howHear" type="text"> </input><br/>
+				<label for="businessCard">Have you been given a business card?</label>
+				<select id="businessCard" name="businessCard" onchange="businessCardChange()">
+					<option value="no">No</option>
+					<option value="yes">Yes</option>
+				</select></br>
+				<label id="discountCodeLbl" class="hidden" for="discountCode">Discount code? (contact info side of business card, bottom left)</label>
+				<input class="hidden" id="discountCode" name="discountCode" type="text"> </input><br/>
+
+			</div>
+			<div class="setupSection even" id="contactInfo">
+				<label for="b2bEmail">Best email for us to contact you:</label>
+				<input id="b2bEmail" name="b2bEmail" type="text"> </input><br/>
+				<label for="contactName">Contact Name:</label>
+				<input id="contactName" name="contactName" type="text"> </input><br/>
+				<label for="emailPrefs">Can we email you about offers, new premium/additional features?</label>
+				<select id="emailPrefs" name="emailPrefs" onchange="emailPrefsSelect()">
+					<option value="1">Only once per year, thanks</option>
+					<option value="No">No thanks</option>
+					<option value="3">Two or three per year is fine</option>
+					<option value="12">Monthly sounds perfect</option>
+					<option value="All">Whenever theres an offer or new feature</option>
+				</select></br>
+				<div id="emailPrefsDetail" class="">
+					<p>Which of these would you like emails for?</p>
+					<label for="selfService">When Self-service comes available</label>
+					<input type="checkbox" id="selfService" name="selfService" value="selfService"><br/>
+					<label for="cheapSubs">Cheaper subscription tiers</label>
+					<input type="checkbox" id="cheapSubs" name="cheapSubs" value="cheapSubs"><br/>
+					<label for="deals">Deals and short term offers</label>
+					<input type="checkbox" id="deals" name="deals" value="deals"><br/>
+					<label for="events">Industry events TeaRounder will be attending</label>
+					<input type="checkbox" id="events" name="events" value="events"><br/>
+				</div>
+				<br/>
+			</div>
+			
+			<div class="odd" id="package">
+				<label for="serviceWanted">Which package (if any) do you want now?</label>
+				<select id="serviceWanted" name="serviceWanted">
+					<option value="keepUpdated">Nothing yet - keep updated/talk to a human first</option>
+					<option value="EmailSetup">Basic TeaRounder with setup by email</option>
+					<option value="Premium">Premium Package</option>
+					<option value="AdvancedSupport" disabled>Self-Service + Advanced Support (coming soon)</option>
+					<option value="free" disabled>Self-Service Freebie (coming soon)</option>
+					<!--<option value="testSubject">Feature Test Subject</option>-->
+				</select></br>
+				<p>Choose "Nothing yet - keep updated..." if you're not ready to use TeaRounder yet, but would like a call back to talk about what we can do for you, or email updates when we add new features/services. Callbacks will come from a UK mobile number.</p>
+				
+				<h2>Coming soon:</h2>
+				<p>Self-service, should be available September 2022: A page for easily adding menu options is being worked on at the moment.</p>
+				<div id="showPackageInfo" class="divAsBtn" onclick="showPackageInfo()">show more package info</div>
+				<div id="hidePackageInfo" class="divAsBtn hidden" onclick="hidePackageInfo()">hide package info</div>
+				<div id="packageInfo" class="hidden">
+					<p>"Basic TeaRounder with setup by email" is our current cheapest way to get TeaRounder. (During late August - early September 2022, due to holidays, allow 10 working days to go live from sending your menu).</p><!-- TODO: reduce the working days down as I make progress on the ordering screens!-->
+
+					<p>Premium Package includes setup by either call back or email, and adds a WooCommerce checkout with support for payment, plus ongoing support via Zoom, Phone and email.</p>
+				</div>
+
+			</div>
+			<button>submit</button>
+		</form>
+	</body>
+</html>
