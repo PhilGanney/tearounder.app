@@ -293,7 +293,7 @@ select{
 
 /*Javascript is used to apply .hidden and .showing as appropriate*/
 .hidden {
-	display: none;
+	display: none !important;
 }
 .showing {
 	display: block;
