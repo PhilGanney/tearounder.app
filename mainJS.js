@@ -81,7 +81,13 @@ var teaRounderData = {
 }; //End of big load of data
 
 function startUp(){
-    //MODAL - (Quick paste in from w3schools example with some minor adaptation to the project)
+	//Check if we have permission to write to clipboard. Todo: actually make use of this
+	navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+		console.log(result);
+		console.log(result.state);
+	});
+	
+	//MODAL - (Quick paste in from w3schools example with some minor adaptation to the project)
 
 	// Get the modal
 	var modal = document.getElementById("myModal");
@@ -125,8 +131,10 @@ function startUp(){
 	categoryChange(escape(categories[0]) + buttonSuffix);
 }
 
-//I keep thinking there must be a simpler way to do this, but haven't found anything
+
 function getCategories(){
+	//todo: the below comment line might be able to replace the rest of this function, thought of it while working on btnCode
+	//return teaRounderData["Categories"];
 	var categoryArray = [];
 	for (var category in teaRounderData.Categories){	
 		categoryArray.push(category);
