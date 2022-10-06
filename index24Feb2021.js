@@ -1,3 +1,9 @@
+//Check if we have permission to write to clipboard (put here not for actual functionality here, Phil just needed to run this code on some environment with https and it does not impact site enough to matter. Todo: remove this if you are checking after 2022 and this is still not being used
+navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+	console.log(result);
+	console.log(result.state);
+});
+
 /*by class we mean css class 
 used in hardcodedHTMLDivTabs
 */
