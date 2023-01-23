@@ -1,0 +1,3 @@
+Everything in this folder was originally for the purpose of making a business from TeaRounder. 
+As part of winding the business down, and making sure that I am legally no longer self-employed, I am making sure that there is no way that anyone might incorrectly think I am still trading.
+At the same time, I would like all of this work to still be viewable by potential employers visiting my github.
