@@ -63,10 +63,10 @@ button{
     margin: 4px;
 	
 }
-
+/**
 .DrinkLine {
-	/**text-align: right;**/
-}
+	text-align: right;
+}**/
 
 .DrinkLine *{
     display: inline-block ;
@@ -182,7 +182,7 @@ select{
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 72px; /*prevents being overlapped by fixed header, even with tagline going to two lines. Media query changes this to smaller margin for screens where the header tagline is on 1 line*/
+	margin-top: 12px; /*no title there anymore*/
 }
 
 /*I can't seem to get nth child working here so I'm just using classes for now */
@@ -413,10 +413,10 @@ select{
 	text-align: left;
 	margin-right: 4%;
 }
-
+/*
 .DrinkLineControls {
-	/*float: right; bug! causes problems with single line items - this bug messed up my demo so I'm just commenting it out quickly*/
-}
+	float: right; bug! causes problems with single line items - this bug messed up my demo so I'm just commenting it out quickly
+}*/
 
 #cookiePopupContainer {
 	position: fixed;
@@ -440,7 +440,7 @@ select{
 /****NO DEFAULT STYLES AFTER THIS COMMENT!, MEDIA QUERIES IN SIZE ORDER (Media queries are usually for overriding styles for specific sizes of screen or to account for device dependant needs, and as such we would not want default styles declared lower than MQ's where they might override a rule. This project uses mobile first design priniciples.****/
 @media only screen and (min-width: 290px) {
 		#mainContent{
-		margin-top: 52px;
+		margin-top: 12px;
 	}
 	/*This is still a fairly narrow screen - any smaller and the title needs to be on the left, rather than centred due to clipping with the fixed position info/help button. Also at a width a bit lower, selects with lots of text started to break the layout - that also happened with input boxes, but its easier to fix them with width:100%; max-width: nnpx; (where nn is the size width it would normally be
 	- we could achieve the same with a max-width media query doing the reverse, but this approach is more "mobile-first"*/
